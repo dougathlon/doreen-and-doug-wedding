@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Doreen and Doug//Wedding Weekend//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:friday-202707@doreen-and-doug-wedding
+DTSTAMP:20261004T000000Z
+DTSTART;VALUE=DATE:20270716
+DTEND;VALUE=DATE:20270717
+SUMMARY:Doreen and Doug - Friday gathering
+LOCATION:Sir John Moore School\, 101 Top Street\, Appleby Magna
+DESCRIPTION:Save the date. Times and further particulars will follow.
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:wedding-202707@doreen-and-doug-wedding
+DTSTAMP:20261004T000000Z
+DTSTART;VALUE=DATE:20270717
+DTEND;VALUE=DATE:20270718
+SUMMARY:Doreen and Doug - Wedding
+LOCATION:Appleby Magna - Church\, then Sir John Moore School
+DESCRIPTION:Save the date. Times and further particulars will follow.
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR
