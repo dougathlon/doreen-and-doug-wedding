@@ -4,7 +4,7 @@ External sources checked 3–4 October 2026; wedding details updated from Doug o
 
 ## Given by Doug
 
-Wedding: Saturday 17 July 2027, church then Sir John Moore School in Appleby Magna. Friday activity: Friday 16 July at the School; details/time unset. Collect separate Friday/Saturday attendance and food allergy or intolerance notes at this stage. A named invitation list will be supplied. Leave RSVP storage/email/account unconfigured. Publish a preview that can be shared with Doreen.
+Wedding: Saturday 17 July 2027, church then Sir John Moore School in Appleby Magna. Friday activity: Friday 16 July at the School; details/time unset. Collect separate Friday/Saturday attendance and food allergy or intolerance notes at this stage. A named invitation list will be supplied. Each person has their own invitation and replies for themselves; no plus-one or household reply flow. Leave RSVP storage/email/account unconfigured. Publish a preview that can be shared with Doreen.
 
 ## Venues and period
 
@@ -19,10 +19,12 @@ Wedding: Saturday 17 July 2027, church then Sir John Moore School in Appleby Mag
 
 ## Travel
 
+The public directions were shortened on 17 October at Doug’s request: retain the nearby airports, Tamworth station, venue map links and National Rail. The invitation offers possible help with a lift, without promising collection or further directions. The detailed route research below is retained as background only.
+
 - [East Midlands Airport taxis](https://www.eastmidlandsairport.com/getting-to-and-from/by-taxi/) and [rail information](https://www.eastmidlandsairport.com/getting-to-and-from/by-train/): taxi transfer; airport has no railway station. Road travel into Appleby Magna is a practical recommendation, not a measured journey-time claim.
 - [Birmingham Airport by train](https://www.birminghamairport.co.uk/transport-links/by-train/): free Air-Rail Link to Birmingham International and trains to Birmingham New Street.
 - [CrossCountry Birmingham–Tamworth](https://www.crosscountrytrains.co.uk/routes-destinations/routes/birmingham-to-tamworth): rail link used for the second leg.
-- [Manchester Airport by train](https://www.manchesterairport.co.uk/getting-to-and-from/by-train/): airport station and Manchester Piccadilly connection. The site asks guests to plan a complete Tamworth journey; it does not invent a direct service or prescribe unverified interchange timings.
+- [Manchester Airport by train](https://www.manchesterairport.co.uk/getting-to-and-from/by-train/): airport station and Manchester Piccadilly connection. The original guidance used a complete Tamworth journey rather than inventing a direct service or prescribing interchange timings; this detail is no longer displayed.
 - [Heathrow rail and Underground](https://www.heathrow.com/transport-and-directions/by-rail-or-train) and [TfL Victoria line](https://tfl.gov.uk/tube/route/victoria/): Piccadilly to Green Park, Victoria northbound to Euston.
 - [Gatwick by train](https://www.gatwickairport.com/transport-options/train.html): Thameslink to St Pancras; separate transfer to Euston.
 - [Stansted rail](https://www.stanstedairport.co.uk/getting-to-and-from/by-train/): Stansted Express to Tottenham Hale; Victoria line onward to Euston.

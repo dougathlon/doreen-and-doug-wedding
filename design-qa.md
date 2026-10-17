@@ -1,6 +1,6 @@
 # Design QA
 
-Final result: passed for the explicitly non-transmitting review preview.
+Initial review, 3–4 October 2026: passed for the explicitly non-transmitting preview. Later changes are recorded below.
 
 ## Visual evidence and scope
 
@@ -29,3 +29,13 @@ Travel disclosures open on mobile and close with Enter. Semantic links, buttons,
 ## Build and scope limits
 
 Production build and all 10 Node tests passed. No linter/type-checker was configured in the starter; no claim of either. No live invitation lookup, private storage, email delivery or organiser authentication is implemented, by the current scope. This is ready for Doreen's review, not for collecting real guest replies. Third-party hotel availability, physical venue access/parking, and July 2027 transport schedules remain unverified.
+
+## Individual invitations and shorter travel copy — 17 October 2026
+
+The current preview has one fixed sample name and one reply, replacing the household flow. Checked the production build in the browser on desktop and at 390px: required answers, uncertain Friday attendance with Saturday acceptance, food notes, review, amendments, a full decline, and completion/reset. Review retains only the invited identity; the form has no guest-count, rename or add-person controls. Mobile width and document width both measured 390px. No reply is sent or persisted.
+
+Travel now consists of two short paragraphs and a National Rail link. Venue map links remain under the weekend details. The copy offers possible help with a lift, with no promised pickup or later travel guide. The removed airport disclosures and their unused data/styles are gone. Original research remains in `docs/sources.md`.
+
+The chosen church is St Michael & All Angels, with a 1pm ceremony at Doug's instruction; the vicar's confirmation is still pending. The calendar now represents Saturday as 12:00 UTC / 1pm UK local time, with no invented end time; Friday stays all-day. Food wording includes allergies and intolerances throughout.
+
+The production build and all 11 tests pass. Tests cover individual response rules, exclusion of added/renamed guest data from the review, calendar time-zone conversion and the retained worker packaging. Individual invitation links and server-side guest access remain planned, not implemented, pending the named guest list and RSVP destination.

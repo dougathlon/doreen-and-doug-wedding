@@ -1,45 +1,49 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { blankReplies, reviewReplies, sampleGuests, validateReplies } from '../src/replies.js';
+import { blankReply, reviewReply, sampleGuest, validateReply } from '../src/replies.js';
 
 const completed = () => ({
-  'example-one': { friday: 'yes', saturday: 'yes', allergies: '  Example allergy  ' },
-  'example-two': { friday: 'unsure', saturday: 'no', allergies: '' },
+  friday: 'yes', saturday: 'yes', allergies: '  Example intolerance  ',
 });
-test('both days require an explicit answer for each invited person', () => {
-  assert.equal(Object.keys(validateReplies(sampleGuests, blankReplies())).length, 4);
-  const missingPerson = completed();
-  delete missingPerson['example-two'];
-  assert.equal(Object.keys(validateReplies(sampleGuests, missingPerson)).length, 2);
+test('one invitee must answer for both days', () => {
+  assert.deepEqual(Object.keys(validateReply(blankReply())), ['friday', 'saturday']);
+  assert.deepEqual(Object.keys(validateReply({ ...blankReply(), saturday: 'yes' })), ['friday']);
 });
-test('mixed household attendance and uncertainty on Friday are valid', () => {
-  assert.deepEqual(validateReplies(sampleGuests, completed()), {});
-  const rows = reviewReplies(sampleGuests, completed());
-  assert.equal(rows[0].saturday, 'yes');
-  assert.equal(rows[1].saturday, 'no');
-  assert.equal(rows[1].friday, 'unsure');
-  assert.equal(rows[0].allergies, 'Example allergy');
+test('Friday-only, Saturday-only and uncertain Friday replies are valid', () => {
+  for (const friday of ['yes', 'no', 'unsure']) {
+    for (const saturday of ['yes', 'no']) {
+      const reply = { ...completed(), friday, saturday };
+      assert.deepEqual(validateReply(reply), {});
+      const reviewed = reviewReply(sampleGuest, reply);
+      assert.equal(reviewed.friday, friday);
+      assert.equal(reviewed.saturday, saturday);
+    }
+  }
 });
 test('Saturday uncertainty and unknown attendance values are rejected', () => {
-  const replies = completed();
-  replies['example-one'].saturday = 'unsure';
-  replies['example-two'].friday = 'maybe';
-  assert.equal(Object.keys(validateReplies(sampleGuests, replies)).length, 2);
+  const reply = { ...completed(), saturday: 'unsure', friday: 'maybe' };
+  assert.deepEqual(Object.keys(validateReply(reply)), ['friday', 'saturday']);
 });
-test('allergy notes are optional, bounded and excluded for a full decline', () => {
-  const replies = completed();
-  replies['example-one'] = { friday: 'no', saturday: 'no', allergies: 'Obsolete sample note' };
-  assert.equal(reviewReplies(sampleGuests, replies)[0].allergies, '');
-  replies['example-one'].allergies = 'a'.repeat(1001);
-  assert.ok(validateReplies(sampleGuests, replies)['example-one-allergies']);
+test('food notes are optional, trimmed, bounded and excluded for a full decline', () => {
+  assert.equal(reviewReply(sampleGuest, completed()).allergies, 'Example intolerance');
+  assert.equal(reviewReply(sampleGuest, { ...completed(), friday: 'no', saturday: 'no' }).allergies, '');
+  for (const allergies of ['', 'a'.repeat(1000)]) {
+    assert.deepEqual(validateReply({ ...completed(), allergies }), {});
+  }
+  for (const allergies of ['a'.repeat(1001), null, 42]) {
+    assert.ok(validateReply({ ...completed(), allergies }).allergies);
+  }
 });
-test('a review includes only the fixed invitation party, with no extra guests', () => {
-  const replies = completed();
-  replies['uninvited'] = { friday: 'yes', saturday: 'yes', allergies: '' };
-  assert.deepEqual(reviewReplies(sampleGuests, replies).map((row) => row.id), sampleGuests.map((guest) => guest.id));
+test('the review keeps the invited identity and cannot add or rename guests', () => {
+  const reply = { ...completed(), id: 'someone-else', name: 'Uninvited', guestCount: 2, guests: ['Companion'] };
+  assert.deepEqual(reviewReply(sampleGuest, reply), {
+    id: sampleGuest.id, name: sampleGuest.name,
+    friday: 'yes', saturday: 'yes', allergies: 'Example intolerance',
+  });
 });
-test('reset creates fresh records and does not keep earlier allergy text', () => {
-  const first = blankReplies();
-  first['example-one'].allergies = 'Sample';
-  assert.equal(blankReplies()['example-one'].allergies, '');
+test('reset creates a fresh individual reply with no earlier answers', () => {
+  const first = blankReply();
+  first.allergies = 'Sample';
+  first.friday = 'yes';
+  assert.deepEqual(blankReply(), { friday: '', saturday: '', allergies: '' });
 });

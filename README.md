@@ -4,7 +4,7 @@ A custom invitation for 17 July 2027 in Appleby Magna, with a Friday gathering o
 
 ## Current release: review preview
 
-The public invitation, weekend information, hotel links, airport directions and calendar download work. The sample RSVP flow supports separate Friday/Saturday answers for two fictional guests, optional food allergy or intolerance notes, validation, review, amendments and reset.
+The public invitation, weekend information, hotel links, brief travel guidance and calendar download work. The sample RSVP flow supports separate Friday/Saturday answers for one fictional named guest, optional food allergy or intolerance notes, validation, review, amendments and reset.
 
 **No real invitations have been loaded. No RSVP endpoint, database, email destination or wedding account is configured.** Replies exist only in React state; they are never sent, logged, put in URLs or saved to browser storage. Reloading the page clears them. The form and page explicitly identify this preview state.
 
@@ -19,7 +19,7 @@ The deployment workflow publishes **only `dist/client`** to GitHub Pages on push
 ## Editing
 
 - `src/App.jsx`: invitation layout and principal wording.
-- `src/content.js`: names, venues, hotels and airport directions.
+- `src/content.js`: names, venues and hotels.
 - `src/ReplyForm.jsx`: explicitly non-transmitting preview interaction.
 - `src/replies.js`: per-person attendance validation and review projection.
 - `src/styles.css`: responsive layout, local fonts and paper treatment.
@@ -32,4 +32,4 @@ All fonts are self-hosted. Licence files are in `public/fonts`. Paper and orname
 
 ## Before inviting guests
 
-The chosen church is St Michael & All Angels and the ceremony is advertised at 1pm, as instructed on 17 October 2026; confirmation from the vicar is still pending. Confirm reception times, the Friday activity and time, reply deadline, room arrangements, parking and any transfer plan. Supply the named guest list and decide household/companion permissions. Choose the wedding account and private RSVP storage, implement and test the plan in `docs/rsvp-plan.md`, and only then replace the preview state with the live invitation flow.
+The chosen church is St Michael & All Angels and the ceremony is advertised at 1pm, as instructed on 17 October 2026; confirmation from the vicar is still pending. Confirm reception times, the Friday activity and time, reply deadline, room arrangements, parking and any transfer plan. Supply the named guest list. Each person receives a separate invitation and replies only for themselves; there are no companion places or household replies. Choose the wedding account and private RSVP storage, implement and test the plan in `docs/rsvp-plan.md`, and only then replace the preview state with the live invitation flow.

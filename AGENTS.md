@@ -11,3 +11,5 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 ## Confirmed invitation decisions — 17 October 2026
 
 Advertise the ceremony at St Michael & All Angels, Appleby Magna, at 1pm on 17 July 2027 (UK local time). This is Doug's chosen church; the vicar's confirmation is still pending. Use “food allergies or intolerances” in guest-facing wording. Keep the RSVP preview non-transmitting until a destination is explicitly configured.
+
+Each invitation is for one named individual, who replies for themselves. Do not reintroduce household replies, default companions, guest-count controls or editable invitee names. Keep travel guidance brief; possible lifts may be mentioned conditionally, without promising collection or a later travel guide.

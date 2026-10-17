@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { answerLabel, blankReplies, reviewReplies, sampleGuests, validateReplies } from "./replies.js";
+import { answerLabel, blankReply, reviewReply, sampleGuest, validateReply } from "./replies.js";
 
 function Attendance({ guest, event, value, onChange, error }) {
   const id = `${guest.id}-${event}`;
@@ -22,11 +22,13 @@ function Attendance({ guest, event, value, onChange, error }) {
 }
 
 export function ReplyForm() {
+  const guest = sampleGuest;
   const [stage, setStage] = useState("closed");
-  const [replies, setReplies] = useState(blankReplies);
+  const [reply, setReply] = useState(blankReply);
   const [errors, setErrors] = useState({});
   const stageHeading = useRef(null);
   const errorSummary = useRef(null);
+  const attending = reply.friday !== "no" || reply.saturday !== "no";
 
   function showHeading(element) {
     element?.focus({ preventScroll: true });
@@ -35,27 +37,27 @@ export function ReplyForm() {
   useEffect(() => { if (stage !== "closed") showHeading(stageHeading.current); }, [stage]);
   useEffect(() => { if (Object.keys(errors).length) showHeading(errorSummary.current); }, [errors]);
 
-  function change(id, field, value) {
-    setReplies((previous) => ({ ...previous, [id]: { ...previous[id], [field]: value } }));
+  function change(field, value) {
+    setReply((previous) => ({ ...previous, [field]: value }));
   }
 
   function review(event) {
     event.preventDefault();
-    const nextErrors = validateReplies(sampleGuests, replies);
+    const nextErrors = validateReply(reply);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length === 0) setStage("review");
   }
 
   function reset() {
-    setReplies(blankReplies());
+    setReply(blankReply());
     setErrors({});
     setStage("complete");
   }
 
   if (stage === "closed") return (
     <div className="reply-preview">
-      <p className="preview-note"><strong>Replies are not yet open.</strong> This preview uses two example guests. Please use invented notes about allergies or intolerances when trying the form; nothing will be sent or saved.</p>
-      <button className="button" onClick={() => setStage("edit")}>Try a sample invitation</button>
+      <p className="preview-note"><strong>Replies are not yet open.</strong> Each invitation is for one named guest, replying for themselves. This sample uses an invented name; nothing will be sent or saved.</p>
+      <button className="button" onClick={() => setStage("edit")}>Preview an individual reply</button>
     </div>
   );
 
@@ -67,57 +69,52 @@ export function ReplyForm() {
     </div>
   );
 
-  if (stage === "review") return (
-    <div className="reply-review">
-      <p className="small-caps">Sample invitation · review only</p>
-      <h3 tabIndex={-1} ref={stageHeading}>Your reply, for review</h3>
-      {reviewReplies(sampleGuests, replies).map((guest) => (
-        <section key={guest.id} className="guest-review" aria-label={`${guest.name} sample reply`}>
-          <h4>{guest.name} <span className="sample-tag">example</span></h4>
+  if (stage === "review") {
+    const reviewed = reviewReply(guest, reply);
+    return (
+      <div className="reply-review">
+        <p className="small-caps">Sample invitation · review only</p>
+        <h3 tabIndex={-1} ref={stageHeading}>Your reply, for review</h3>
+        <section className="guest-review" aria-label={`${reviewed.name} sample reply`}>
+          <h4>{reviewed.name} <span className="sample-tag">sample</span></h4>
           <dl>
-            <div><dt>Friday, 16 July</dt><dd>{answerLabel[guest.friday]}</dd></div>
-            <div><dt>Saturday, 17 July</dt><dd>{answerLabel[guest.saturday]}</dd></div>
-            {(guest.friday !== "no" || guest.saturday !== "no") && <div><dt>Food allergies or intolerances</dt><dd className="allergy-review">{guest.allergies || "No notes supplied"}</dd></div>}
+            <div><dt>Friday, 16 July</dt><dd>{answerLabel[reviewed.friday]}</dd></div>
+            <div><dt>Saturday, 17 July</dt><dd>{answerLabel[reviewed.saturday]}</dd></div>
+            {attending && <div><dt>Food allergies or intolerances</dt><dd className="allergy-review">{reviewed.allergies || "No notes supplied"}</dd></div>}
           </dl>
         </section>
-      ))}
-      <p className="preview-note">This is a preview of the review step. No reply will be delivered.</p>
-      <div className="form-actions">
-        <button className="button secondary" onClick={() => setStage("edit")}>Amend the reply</button>
-        <button className="button" onClick={reset}>Finish preview</button>
+        <p className="preview-note">This is a preview of the review step. No reply will be delivered.</p>
+        <div className="form-actions">
+          <button className="button secondary" onClick={() => setStage("edit")}>Amend the reply</button>
+          <button className="button" onClick={reset}>Finish preview</button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 
   return (
     <form className="reply-form" onSubmit={review} noValidate>
-      <p className="small-caps">Sample invitation · two example guests</p>
-      <h3 tabIndex={-1} ref={stageHeading}>Who shall join us?</h3>
-      <p className="preview-note">Please try this form with invented details. Answers remain on this page only and disappear when it is reloaded.</p>
+      <p className="small-caps">Sample invitation · one named guest</p>
+      <h3 tabIndex={-1} ref={stageHeading}>Will you join us?</h3>
+      <p className="preview-note">Please reply for yourself; each guest has a separate invitation. Use invented notes when trying this preview. Answers remain on this page only and disappear when it is reloaded.</p>
       {Object.keys(errors).length > 0 && <div role="alert" className="error-summary" tabIndex={-1} ref={errorSummary}>
         <strong>A few particulars are missing.</strong>
         <ul>{Object.entries(errors).map(([id, message]) => <li key={id}>{message}</li>)}</ul>
       </div>}
-      {sampleGuests.map((guest) => {
-        const reply = replies[guest.id];
-        const attending = reply.friday !== "no" || reply.saturday !== "no";
-        return (
-          <section className="guest-form" key={guest.id} aria-labelledby={`${guest.id}-title`}>
-            <h4 id={`${guest.id}-title`}>{guest.name} <span className="sample-tag">example</span></h4>
-            <Attendance guest={guest} event="friday" value={reply.friday} onChange={(value) => change(guest.id, "friday", value)} error={errors[`${guest.id}-friday`]} />
-            <Attendance guest={guest} event="saturday" value={reply.saturday} onChange={(value) => change(guest.id, "saturday", value)} error={errors[`${guest.id}-saturday`]} />
-            {attending && <div className="allergy-field">
-              <label htmlFor={`${guest.id}-allergies`}>Food allergies or intolerances <span className="optional">(if any)</span></label>
-              <p id={`${guest.id}-allergy-hint`} className="field-hint">The catering is yet to be settled. For now, please note any food allergies or intolerances we should know of.</p>
-              <textarea id={`${guest.id}-allergies`} name={`${guest.id}-allergies`} rows={3} maxLength={1000} autoComplete="off"
-                aria-describedby={`${guest.id}-allergy-hint${errors[`${guest.id}-allergies`] ? ` ${guest.id}-allergies-error` : ""}`}
-                aria-invalid={Boolean(errors[`${guest.id}-allergies`])} value={reply.allergies}
-                onChange={(event) => change(guest.id, "allergies", event.target.value)} />
-              {errors[`${guest.id}-allergies`] && <p className="field-error" id={`${guest.id}-allergies-error`}>{errors[`${guest.id}-allergies`]}</p>}
-            </div>}
-          </section>
-        );
-      })}
+      <section className="guest-form" aria-labelledby={`${guest.id}-title`}>
+        <h4 id={`${guest.id}-title`}>{guest.name} <span className="sample-tag">sample</span></h4>
+        <Attendance guest={guest} event="friday" value={reply.friday} onChange={(value) => change("friday", value)} error={errors.friday} />
+        <Attendance guest={guest} event="saturday" value={reply.saturday} onChange={(value) => change("saturday", value)} error={errors.saturday} />
+        {attending && <div className="allergy-field">
+          <label htmlFor={`${guest.id}-allergies`}>Food allergies or intolerances <span className="optional">(if any)</span></label>
+          <p id={`${guest.id}-allergy-hint`} className="field-hint">The catering is yet to be settled. For now, please note any food allergies or intolerances we should know of.</p>
+          <textarea id={`${guest.id}-allergies`} name={`${guest.id}-allergies`} rows={3} maxLength={1000} autoComplete="off"
+            aria-describedby={`${guest.id}-allergy-hint${errors.allergies ? ` ${guest.id}-allergies-error` : ""}`}
+            aria-invalid={Boolean(errors.allergies)} value={reply.allergies}
+            onChange={(event) => change("allergies", event.target.value)} />
+          {errors.allergies && <p className="field-error" id={`${guest.id}-allergies-error`}>{errors.allergies}</p>}
+        </div>}
+      </section>
       <div className="form-actions">
         <button type="button" className="button secondary" onClick={reset}>Clear & close preview</button>
         <button type="submit" className="button">Review the reply</button>

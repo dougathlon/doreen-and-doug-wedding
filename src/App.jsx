@@ -1,4 +1,4 @@
-import { airports, hotels, mapLink, wedding } from "./content.js";
+import { hotels, mapLink, wedding } from "./content.js";
 import { ReplyForm } from "./ReplyForm.jsx";
 
 const asset = (name) => `${import.meta.env.BASE_URL}assets/${name}`;
@@ -60,18 +60,15 @@ export function App() {
         <section id="lodgings" className="detail-section">
           <SectionHeading number="II" title="Lodgings Nearby"><p>For those wishing to stay the night, two local houses offer rooms.</p></SectionHeading>
           <div className="two-columns">{hotels.map((hotel) => <article key={hotel.name}><h3>{hotel.name}</h3><p className="small-caps hotel-place">{hotel.place}</p><p>{hotel.detail}</p><a className="text-link" href={hotel.url}>Enquire about rooms</a></article>)}</div>
-          <p className="footnote">Room allocations and any special rates are still to be confirmed. Please arrange transport between your lodgings and the venues.</p>
         </section>
         <Ornament />
         <section id="travel" className="detail-section">
           <SectionHeading number="III" title="Directions for Travellers"><p>Appleby Magna, Leicestershire</p></SectionHeading>
-          <div className="travel-intro"><p>East Midlands and Birmingham are convenient airports for the village. If coming by railway, Tamworth is a useful point of arrival; arrange a taxi for the final journey to Appleby Magna.</p><p>For the School, use <strong>DE12 7AH</strong>. The village is close to Junction 11 of the M42. Directions for parking and the journey from Church to School will follow.</p></div>
-          <h3 className="airport-heading">From the airports</h3>
-          <div className="airport-list">{airports.map((airport) => <details key={airport.code}>
-            <summary><span className="airport-name">{airport.name}<small>{airport.note}</small></span><span className="airport-code">{airport.code}</span><span className="disclosure" aria-hidden="true">+</span></summary>
-            <div className="airport-detail"><p>{airport.text}</p><div className="route-links">{airport.links.map((link) => <a className="text-link" key={link.url} href={link.url}>{link.label}</a>)}</div></div>
-          </details>)}</div>
-          <p className="footnote">These are routes to help with planning, not a July 2027 timetable. Consult <a href="https://www.nationalrail.co.uk/">National Rail</a> and the airport links before booking, and check again nearer the day. A return taxi is best arranged in advance.</p>
+          <div className="travel-intro">
+            <p>The Church and School are both in Appleby Magna. East Midlands and Birmingham are convenient airports for the village; Tamworth is a useful station for those coming by railway.</p>
+            <p>For those arriving by train or air, do let us know your plans; we may be able to help with a lift.</p>
+            <a className="text-link" href="https://www.nationalrail.co.uk/">Railway journeys</a>
+          </div>
         </section>
         <Ornament />
         <section id="reply" className="detail-section reply-section">
