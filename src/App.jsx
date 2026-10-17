@@ -26,9 +26,9 @@ export function App() {
             <h1><span>Doreen</span><em aria-hidden="true">&</em><span className="sr-only">and </span><span>Doug</span></h1>
             <Ornament />
             <p className="invitation-date">Saturday, the Seventeenth of July<br /><span>Two Thousand & Twenty-Seven</span></p>
+            <p className="time-note">At one o’clock in the afternoon ({wedding.ceremonyTime}).</p>
             <p className="invitation-venue">{wedding.church}<br /><span>Appleby Magna</span></p>
             <p className="invitation-afterwards"><em>and afterwards at</em><br /><span>{wedding.school}</span></p>
-            <p className="time-note">The hour of the ceremony shall be announced.</p>
             <a className="button" href="#reply">The favour of a Reply</a>
             <a className="quiet-link calendar-link" href={`${import.meta.env.BASE_URL}wedding-weekend.ics`} download>Keep the dates in your calendar</a>
           </div>
@@ -49,12 +49,12 @@ export function App() {
             <article>
               <p className="small-caps">Saturday · 17 July</p><h3>The Wedding Day</h3>
               <p>We shall be married at {wedding.church}, and afterwards receive our family and friends at Sir John Moore School.</p>
-              <p>The order of the day, with times for the ceremony and reception, will be set down here in due course.</p>
+              <p>The ceremony begins at {wedding.ceremonyTime}. Further particulars of the reception will follow.</p>
               <p className="venue-label">{wedding.church}<br /><span>{wedding.churchAddress}</span></p>
               <a className="text-link" href={mapLink(wedding.church + " " + wedding.churchAddress)}>Find the Church</a>
             </article>
           </div>
-          <p className="footnote">The calendar entries reserve both dates; the hours remain to be confirmed.</p>
+          <p className="footnote">The calendar gives the ceremony at 1pm, local time in Appleby Magna. Friday remains a date to keep; its hour will follow.</p>
         </section>
         <Ornament />
         <section id="lodgings" className="detail-section">
@@ -76,7 +76,7 @@ export function App() {
         <Ornament />
         <section id="reply" className="detail-section reply-section">
           <SectionHeading number="IV" title="The favour of a Reply"><p>Pray let us know whether you will join us on Friday, on Saturday, or on both days.</p></SectionHeading>
-          <p className="reply-intro">The catering is yet to be settled. For the present, we ask only for a note of any food allergies. Further particulars will follow.</p>
+          <p className="reply-intro">The catering is yet to be settled. For the present, we ask only for a note of any food allergies or intolerances. Further particulars will follow.</p>
           <ReplyForm />
         </section>
         <footer className="page-footer"><Ornament /><p>Doreen <em>&</em> Doug</p><span>Appleby Magna · 17 July 2027</span><a href="#invitation">Return to the invitation</a></footer>

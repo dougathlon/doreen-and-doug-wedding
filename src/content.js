@@ -2,6 +2,7 @@ export const wedding = {
   names: "Doreen & Doug",
   date: "Saturday 17 July 2027",
   friday: "Friday 16 July 2027",
+  ceremonyTime: "1pm",
   church: "St Michael & All Angels",
   churchAddress: "Church Street, Appleby Magna",
   school: "Sir John Moore School",

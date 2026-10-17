@@ -54,7 +54,7 @@ export function ReplyForm() {
 
   if (stage === "closed") return (
     <div className="reply-preview">
-      <p className="preview-note"><strong>Replies are not yet open.</strong> This preview uses two example guests. Please use invented allergy notes when trying the form; nothing will be sent or saved.</p>
+      <p className="preview-note"><strong>Replies are not yet open.</strong> This preview uses two example guests. Please use invented notes about allergies or intolerances when trying the form; nothing will be sent or saved.</p>
       <button className="button" onClick={() => setStage("edit")}>Try a sample invitation</button>
     </div>
   );
@@ -77,7 +77,7 @@ export function ReplyForm() {
           <dl>
             <div><dt>Friday, 16 July</dt><dd>{answerLabel[guest.friday]}</dd></div>
             <div><dt>Saturday, 17 July</dt><dd>{answerLabel[guest.saturday]}</dd></div>
-            {(guest.friday !== "no" || guest.saturday !== "no") && <div><dt>Allergy notes</dt><dd className="allergy-review">{guest.allergies || "No notes supplied"}</dd></div>}
+            {(guest.friday !== "no" || guest.saturday !== "no") && <div><dt>Food allergies or intolerances</dt><dd className="allergy-review">{guest.allergies || "No notes supplied"}</dd></div>}
           </dl>
         </section>
       ))}
@@ -107,8 +107,8 @@ export function ReplyForm() {
             <Attendance guest={guest} event="friday" value={reply.friday} onChange={(value) => change(guest.id, "friday", value)} error={errors[`${guest.id}-friday`]} />
             <Attendance guest={guest} event="saturday" value={reply.saturday} onChange={(value) => change(guest.id, "saturday", value)} error={errors[`${guest.id}-saturday`]} />
             {attending && <div className="allergy-field">
-              <label htmlFor={`${guest.id}-allergies`}>Allergy notes <span className="optional">(if any)</span></label>
-              <p id={`${guest.id}-allergy-hint`} className="field-hint">The catering is yet to be settled. For now, please note any food allergies we should know of.</p>
+              <label htmlFor={`${guest.id}-allergies`}>Food allergies or intolerances <span className="optional">(if any)</span></label>
+              <p id={`${guest.id}-allergy-hint`} className="field-hint">The catering is yet to be settled. For now, please note any food allergies or intolerances we should know of.</p>
               <textarea id={`${guest.id}-allergies`} name={`${guest.id}-allergies`} rows={3} maxLength={1000} autoComplete="off"
                 aria-describedby={`${guest.id}-allergy-hint${errors[`${guest.id}-allergies`] ? ` ${guest.id}-allergies-error` : ""}`}
                 aria-invalid={Boolean(errors[`${guest.id}-allergies`])} value={reply.allergies}

@@ -1,16 +1,16 @@
 # Content sources and assumptions
 
-Checked 3–4 October 2026. Route advice describes available connections, not bookable timetables or fares for July 2027. Hotel availability and wedding room blocks are not verified.
+External sources checked 3–4 October 2026; wedding details updated from Doug on 17 October 2026. Route advice describes available connections, not bookable timetables or fares for July 2027. Hotel availability and wedding room blocks are not verified.
 
 ## Given by Doug
 
-Wedding: Saturday 17 July 2027, church then Sir John Moore School in Appleby Magna. Friday activity: Friday 16 July at the School; details/time unset. Collect separate Friday/Saturday attendance and only allergy notes at this stage. A named invitation list will be supplied. Leave RSVP storage/email/account unconfigured. Publish a preview that can be shared with Doreen.
+Wedding: Saturday 17 July 2027, church then Sir John Moore School in Appleby Magna. Friday activity: Friday 16 July at the School; details/time unset. Collect separate Friday/Saturday attendance and food allergy or intolerance notes at this stage. A named invitation list will be supplied. Leave RSVP storage/email/account unconfigured. Publish a preview that can be shared with Doreen.
 
 ## Venues and period
 
 - [The Foundation Weddings](https://www.thefoundationweddings.com/): built in 1697; 101 Top Street, Appleby Magna, DE12 7AH. Used as the period anchor for the tone. The page's modern marketing wording is not reused.
-- [St Michael & All Angels, Appleby Magna](https://applebygroup.org.uk/our-churches/appleby-magna/): parish church serving Appleby Magna/Parva. **Assumption pending confirmation:** this is the user's “church.” The preview uses this name; there is no claim of a verified booking.
-- Names Doreen and Doug are from the user's context. Surnames, ceremony hour, Friday activity, reply deadline and wedding email are deliberately unset.
+- [St Michael & All Angels, Appleby Magna](https://applebygroup.org.uk/our-churches/appleby-magna/): parish church serving Appleby Magna/Parva. **Chosen church, confirmed by Doug on 17 October 2026.** He instructed us to advertise a 1pm ceremony while confirmation from the vicar is still pending.
+- Names Doreen and Doug are from the user's context. Surnames, Friday activity/time, reception times, reply deadline and wedding email are deliberately unset. Saturday's 1pm ceremony is UK local time; the calendar encodes 12:00 UTC, equivalent to 13:00 Europe/London on 17 July 2027. No finish time is invented.
 
 ## Hotels
 

@@ -18,7 +18,7 @@ export function validateReplies(guests, replies) {
       errors[`${guest.id}-saturday`] = `Please choose a Saturday answer for ${guest.name}.`;
     }
     if (reply && (typeof reply.allergies !== "string" || reply.allergies.length > 1000)) {
-      errors[`${guest.id}-allergies`] = "Please keep allergy notes to 1,000 characters.";
+      errors[`${guest.id}-allergies`] = "Please keep notes about food allergies or intolerances to 1,000 characters.";
     }
   }
   return errors;
