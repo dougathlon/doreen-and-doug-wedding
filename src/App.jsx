@@ -65,9 +65,10 @@ export function App() {
         <section id="travel" className="detail-section">
           <SectionHeading number="III" title="Directions for Travellers"><p>Appleby Magna, Leicestershire</p></SectionHeading>
           <div className="travel-intro">
-            <p>The Church and School are both in Appleby Magna. East Midlands and Birmingham are convenient airports for the village; Tamworth is a useful station for those coming by railway.</p>
+            <p>The Church and School are both in Appleby Magna. East Midlands and Birmingham are convenient airports for the village.</p>
+            <p>Those arriving at a London airport can travel into the city and onward from <a href="https://www.londonnorthwesternrailway.co.uk/train-times/london-euston-to-tamworth">London Euston directly to Tamworth</a>, a nearby station for Appleby Magna. From Heathrow, take the Elizabeth line to Tottenham Court Road, then the Northern line to Euston. From Gatwick, take Thameslink to St Pancras, then make the short transfer to Euston.</p>
             <p>For those arriving by train or air, do let us know your plans; we may be able to help with a lift.</p>
-            <a className="text-link" href="https://www.nationalrail.co.uk/">Railway journeys</a>
+            <p className="field-hint">For your chosen travel day: <a href="https://tfl.gov.uk/plan-a-journey/">London connections</a> · <a href="https://www.nationalrail.co.uk/">Railway journeys</a></p>
           </div>
         </section>
         <Ornament />

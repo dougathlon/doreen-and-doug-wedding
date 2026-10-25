@@ -13,3 +13,5 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 Advertise the ceremony at St Michael & All Angels, Appleby Magna, at 1pm on 17 July 2027 (UK local time). This is Doug's chosen church; the vicar's confirmation is still pending. Use “food allergies or intolerances” in guest-facing wording. Keep the RSVP preview non-transmitting until a destination is explicitly configured.
 
 Each invitation is for one named individual, who replies for themselves. Do not reintroduce household replies, default companions, guest-count controls or editable invitee names. Keep travel guidance brief; possible lifts may be mentioned conditionally, without promising collection or a later travel guide.
+
+On 25 October, Doug requested a concise London-airport route via London Euston to Tamworth and planning for actual circulation. Keep the Heathrow/Gatwick examples short; do not restore the full airport guide. No wedding inbox or live RSVP destination has yet been selected or connected.

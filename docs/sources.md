@@ -1,6 +1,6 @@
 # Content sources and assumptions
 
-External sources checked 3–4 October 2026; wedding details updated from Doug on 17 October 2026. Route advice describes available connections, not bookable timetables or fares for July 2027. Hotel availability and wedding room blocks are not verified.
+Original external sources checked 3–4 October 2026; London connections checked again on 25 October 2026. Wedding details updated from Doug on 17 October 2026. Route advice describes available connections, not bookable timetables or fares for July 2027. Hotel availability and wedding room blocks are not verified.
 
 ## Given by Doug
 
@@ -19,7 +19,12 @@ Wedding: Saturday 17 July 2027, church then Sir John Moore School in Appleby Mag
 
 ## Travel
 
-The public directions were shortened on 17 October at Doug’s request: retain the nearby airports, Tamworth station, venue map links and National Rail. The invitation offers possible help with a lift, without promising collection or further directions. The detailed route research below is retained as background only.
+The public directions were shortened on 17 October at Doug’s request. On 25 October he requested London-airport connections to Tamworth. The page now adds one paragraph with Heathrow and Gatwick examples, Euston–Tamworth direct trains, and links to TfL/National Rail. The invitation offers possible help with a lift, without promising collection or further directions. The other detailed route research below is retained as background only.
+
+- [London Northwestern Railway: Euston–Tamworth](https://www.londonnorthwesternrailway.co.uk/train-times/london-euston-to-tamworth): direct trains confirmed on 25 October; no present-day fare, frequency or journey-time promise is copied into the invitation.
+- [Heathrow rail guidance](https://www.heathrow.com/transport-and-directions/by-rail-or-train): the airport lists the Euston connection via the Northern line and Elizabeth line at Tottenham Court Road; the invitation describes the reverse direction from Heathrow.
+- [Gatwick train guidance](https://www.gatwickairport.com/transport-options/train.html): Thameslink serves St Pancras; Euston is a separate onward transfer, not the arrival station from Gatwick.
+- [Local station distances](https://www.streetcheck.co.uk/postcode/de127au): Polesworth is geographically closer to Appleby Magna than Tamworth. Use “nearby” for Tamworth, not an absolute “nearest”; the reason for naming Tamworth is the useful London connection.
 
 - [East Midlands Airport taxis](https://www.eastmidlandsairport.com/getting-to-and-from/by-taxi/) and [rail information](https://www.eastmidlandsairport.com/getting-to-and-from/by-train/): taxi transfer; airport has no railway station. Road travel into Appleby Magna is a practical recommendation, not a measured journey-time claim.
 - [Birmingham Airport by train](https://www.birminghamairport.co.uk/transport-links/by-train/): free Air-Rail Link to Birmingham International and trains to Birmingham New Street.

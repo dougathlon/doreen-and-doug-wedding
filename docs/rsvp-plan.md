@@ -4,6 +4,29 @@ Status: design only. No wedding account, email destination, storage service or s
 
 Decision confirmed by Doug on 17 October 2026: one named individual per invitation, with each person answering for themselves. The earlier household model is superseded.
 
+## Decisions for circulation — 25 October 2026
+
+The public design and individual reply preview exist. Actual guest lookup, saved replies, email sending and private administration still need implementation. No production provider or account is selected by this plan.
+
+Use a dedicated wedding mailbox for questions, organiser notifications and the reply-to address on guest receipts. Give both Doug and Doreen access and arrange account recovery. A personal mailbox is sufficient for receiving mail; for example, [Gmail supports delegated inbox access](https://support.google.com/mail/answer/138350?hl=en). Automated sending still needs an authenticated connection or mail-delivery provider. Keep its credentials server-side. If sending from a custom domain, configure the sender verification/authentication required by that provider and test actual delivery.
+
+The confirmation sequence should be:
+
+1. Save the named guest's Friday/Saturday answers and optional food note in private storage. A correction replaces the same guest's response.
+2. Show the guest confirmation on the website only when the save succeeds.
+3. Notify the wedding inbox that a reply was received or changed, linking to the private guest list. Do not copy food notes into notification emails.
+4. Send a brief receipt with the attendance choices and an amendment link when an email address is available. A guest invited by message can reply without supplying an email; the website confirmation still applies. Report/retry mail failures without losing or duplicating the saved reply.
+
+Before connecting the service, choose the wedding inbox, hosting/account owner for the private backend, whether guest email receipts are wanted, and an initial RSVP deadline. A custom website address is optional; choose it before issuing personal links if desired. [GitHub Pages is static hosting](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages), so it can retain the invitation while a separate server function and database receive replies.
+
+Supply a private guest list with one row per invited individual: display/full name, contact email if available, intended delivery channel/contact, and which events they are invited to. Do not put this list in the public repository. Invited partners receive separate links. No anonymous plus-one places are created. The organiser view should also allow recording a reply received by telephone or message.
+
+Confirm the ceremony arrangement with the vicar, an initial reply deadline, and which details can follow later. Friday activity/time, reception timings, dress guidance and practical access/parking information can be added once settled; menu selection remains deferred. Keep the conditional lift wording and handle actual collection arrangements individually.
+
+The first production release needs a private guest/response list with Friday/Saturday totals, unanswered guests, per-guest food notes and a CSV export; one revocable invitation link per guest; a way to amend replies; a contact route; and a short explanation of who can see food notes and when they will be deleted. Keep the public invitation separate from guest records and organiser access.
+
+Before circulation, run a small pilot with Doug, Doreen and a test invitee: save a reply, reload and reopen it, amend it, verify headcounts and the export, receive both organiser and guest emails where enabled, and try another guest's link without being able to access their record through the first invitation. Test rejected/expired links, failed saves, duplicate submissions and mail failures. Keep a backup/export and test recovery. Only then replace the sample labels and issue real invitations; bulk sending or reminders need explicit instruction.
+
 ## Recommended shape
 
 Use persistent private storage as the record of replies, with email notifications to the wedding account after a successful save. Email alone is a poor record: corrections and retried submissions can produce conflicting headcounts. Saving the reply must not depend on delivery of a notification.
