@@ -41,10 +41,8 @@ export function App() {
           <div className="two-columns weekend-columns">
             <article>
               <p className="small-caps">Friday · 16 July</p><h3>On the Eve</h3>
-              <p>For those arriving on Friday, there will be a gathering at the School. The particulars and hour will follow.</p>
+              <p>For those arriving on Friday, there will be a gathering. The place and hour will follow.</p>
               <p>Please tell us in your reply whether you think you will join us; a little advance notice will help us make our arrangements.</p>
-              <p className="venue-label">{wedding.school}<br /><span>{wedding.schoolAddress}</span></p>
-              <a className="text-link" href={mapLink(wedding.school + " " + wedding.schoolAddress)}>Find the School</a>
             </article>
             <article>
               <p className="small-caps">Saturday · 17 July</p><h3>The Wedding Day</h3>
@@ -52,6 +50,8 @@ export function App() {
               <p>The ceremony begins at {wedding.ceremonyTime}. Further particulars of the reception will follow.</p>
               <p className="venue-label">{wedding.church}<br /><span>{wedding.churchAddress}</span></p>
               <a className="text-link" href={mapLink(wedding.church + " " + wedding.churchAddress)}>Find the Church</a>
+              <p className="venue-label">{wedding.school}<br /><span>{wedding.schoolAddress}</span></p>
+              <a className="text-link" href={mapLink(wedding.school + " " + wedding.schoolAddress)}>Find the School</a>
             </article>
           </div>
           <p className="footnote">The calendar gives the ceremony at 1pm, local time in Appleby Magna. Friday remains a date to keep; its hour will follow.</p>

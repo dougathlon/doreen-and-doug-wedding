@@ -15,3 +15,9 @@ Advertise the ceremony at St Michael & All Angels, Appleby Magna, at 1pm on 17 J
 Each invitation is for one named individual, who replies for themselves. Do not reintroduce household replies, default companions, guest-count controls or editable invitee names. Keep travel guidance brief; possible lifts may be mentioned conditionally, without promising collection or a later travel guide.
 
 On 25 October, Doug requested a concise London-airport route via London Euston to Tamworth and planning for actual circulation. Keep the Heathrow/Gatwick examples short; do not restore the full airport guide. No wedding inbox or live RSVP destination has yet been selected or connected.
+
+## Friday venue correction — 28 October 2026
+
+Friday's gathering may not take place at the School. Retain Friday 16 July and the attendance question, but leave its location unspecified in both the invitation and calendar. Keep the School name, address and map link with Saturday's reception details; Saturday's church and School venues remain unchanged.
+
+The correction was relayed on 27 October; Doug directly authorised implementation and publication on 28 October 2026.

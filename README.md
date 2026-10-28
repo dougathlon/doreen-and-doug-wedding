@@ -1,6 +1,6 @@
 # Doreen & Doug — wedding invitation
 
-A custom invitation for 17 July 2027 in Appleby Magna, with a Friday gathering on 16 July at Sir John Moore School. The selected baby portrait is used unchanged.
+A custom invitation for 17 July 2027 in Appleby Magna, with a Friday gathering on 16 July whose location is yet to be settled. Saturday's reception is at Sir John Moore School. The selected baby portrait is used unchanged.
 
 ## Current release: review preview
 
@@ -32,4 +32,4 @@ All fonts are self-hosted. Licence files are in `public/fonts`. Paper and orname
 
 ## Before inviting guests
 
-The chosen church is St Michael & All Angels and the ceremony is advertised at 1pm, as instructed on 17 October 2026; confirmation from the vicar is still pending. Confirm reception times, the Friday activity and time, reply deadline, room arrangements, parking and any transfer plan. Supply the named guest list. Each person receives a separate invitation and replies only for themselves; there are no companion places or household replies. Choose the wedding account and private RSVP storage, implement and test the plan in `docs/rsvp-plan.md`, and only then replace the preview state with the live invitation flow.
+The chosen church is St Michael & All Angels and the ceremony is advertised at 1pm, as instructed on 17 October 2026; confirmation from the vicar is still pending. Confirm reception times, the Friday location, activity and time, reply deadline, room arrangements, parking and any transfer plan. Supply the named guest list. Each person receives a separate invitation and replies only for themselves; there are no companion places or household replies. Choose the wedding account and private RSVP storage, implement and test the plan in `docs/rsvp-plan.md`, and only then replace the preview state with the live invitation flow.

@@ -21,7 +21,7 @@ Before connecting the service, choose the wedding inbox, hosting/account owner f
 
 Supply a private guest list with one row per invited individual: display/full name, contact email if available, intended delivery channel/contact, and which events they are invited to. Do not put this list in the public repository. Invited partners receive separate links. No anonymous plus-one places are created. The organiser view should also allow recording a reply received by telephone or message.
 
-Confirm the ceremony arrangement with the vicar, an initial reply deadline, and which details can follow later. Friday activity/time, reception timings, dress guidance and practical access/parking information can be added once settled; menu selection remains deferred. Keep the conditional lift wording and handle actual collection arrangements individually.
+Confirm the ceremony arrangement with the vicar, an initial reply deadline, and which details can follow later. Friday location/activity/time, reception timings, dress guidance and practical access/parking information can be added once settled; menu selection remains deferred. Keep the conditional lift wording and handle actual collection arrangements individually.
 
 The first production release needs a private guest/response list with Friday/Saturday totals, unanswered guests, per-guest food notes and a CSV export; one revocable invitation link per guest; a way to amend replies; a contact route; and a short explanation of who can see food notes and when they will be deleted. Keep the public invitation separate from guest records and organiser access.
 
@@ -37,7 +37,7 @@ GitHub Pages can continue serving the invitation. A small HTTPS API and private 
 
 - Named guest: stable ID, display name and specifically allowed event IDs. Each guest responds for themselves, including when two invited people are a couple. There are no household replies, companion places, guest counts, editable guest names or add-person controls.
 - Personal invitation: one guest ID, optional contact email, hashed unguessable access token, revoked/expiry state. Each link grants access to exactly one guest. A real guest list must never be bundled into the public JavaScript.
-- Event: Friday gathering, 16 July 2027; Saturday wedding, 17 July 2027. Saturday begins at 1pm UK local time; Friday's time remains unset. Attendance is per guest per event.
+- Event: Friday gathering, 16 July 2027; Saturday wedding, 17 July 2027. Saturday begins at 1pm UK local time; Friday's location and time remain unset. Attendance is per guest per event.
 - Reply: guest ID + event ID as a unique key, yes/no for Saturday and yes/no/uncertain for Friday. A later amendment replaces the same record. Preserve an organiser-visible update timestamp/version.
 - Food allergy or intolerance note: optional text, at most 1,000 characters, belonging to the individual guest. No menu selections while catering remains undecided. Exclude notes for people declining both events from catering exports.
 - Organiser: separately authenticated Doug/Doreen accounts, least-privilege administrative access. A public link or invitation token is not an administrator credential.
