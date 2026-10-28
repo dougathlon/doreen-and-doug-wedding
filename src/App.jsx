@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { api } from "./rsvp-api.js";
 import { hotels, mapLink, wedding } from "./content.js";
 import { ReplyForm } from "./ReplyForm.jsx";
 
@@ -10,9 +12,15 @@ function SectionHeading({ number, title, children }) {
 }
 
 export function App() {
+  const [config, setConfig] = useState(null);
+  useEffect(() => {
+    let current = true;
+    api("config").then((value) => { if (current) setConfig(value); }).catch(() => { if (current) setConfig({ available: false, open: false }); });
+    return () => { current = false; };
+  }, []);
   return <>
     <a className="skip-link" href="#invitation">Skip to the invitation</a>
-    <div className="preview-banner">A preview for Doreen & Doug <span aria-hidden="true">·</span> Replies are not yet open</div>
+    <div className="preview-banner">{!config ? "Doreen & Doug · 17 July 2027" : config.localDemo ? "Local test · invented details only · no email is sent" : !config.available ? "A preview for Doreen & Doug · Replies are not yet open" : config.open ? "Doreen & Doug · 17 July 2027" : "Doreen & Doug · Replies are presently closed"}</div>
     <nav className="navigation" aria-label="Wedding information">
       <a href="#invitation">Invitation</a><a href="#weekend">Weekend</a><a href="#lodgings">Lodgings</a><a href="#travel">Travel</a><a href="#reply">Reply</a>
     </nav>
@@ -75,11 +83,11 @@ export function App() {
         <section id="reply" className="detail-section reply-section">
           <SectionHeading number="IV" title="The favour of a Reply"><p>Pray let us know whether you will join us on Friday, on Saturday, or on both days.</p></SectionHeading>
           <p className="reply-intro">The catering is yet to be settled. For the present, we ask only for a note of any food allergies or intolerances. Further particulars will follow.</p>
-          <ReplyForm />
+          {config ? <ReplyForm config={config} /> : <p role="status">Opening the reply form…</p>}
         </section>
         <footer className="page-footer"><Ornament /><p>Doreen <em>&</em> Doug</p><span>Appleby Magna · 17 July 2027</span><a href="#invitation">Return to the invitation</a></footer>
       </div>
     </main>
-    <p className="preview-footer">Design preview · No replies are being collected.</p>
+    {config && (!config.available || config.localDemo) && <p className="preview-footer">{config.localDemo ? "Local test · Replies stay on this computer. No email is sent." : "Design preview · No replies are being collected."}</p>}
   </>;
 }

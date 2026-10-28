@@ -1,90 +1,71 @@
 # Replies and private administration — next phase
 
-Status: design only. No wedding account, email destination, storage service or server endpoint has been created or connected.
+Status: design implemented locally; production setup pending. Doug supplied the wedding Gmail address on 28 October 2026. It is recorded in gitignored `.env.local` as `WEDDING_CONTACT_EMAIL`; the production service expects this setting, but it has not been uploaded. Mailbox access, recovery and delivery are unverified. No production RSVP endpoint, database or mail integration is connected. See `rsvp-deployment.md` for implementation and launch checks.
 
-Decision confirmed by Doug on 17 October 2026: one named individual per invitation, with each person answering for themselves. The earlier household model is superseded.
+## Confirmed direction — 28 October 2026
 
-## Decisions for circulation — 25 October 2026
+Send the same website link to invited people. Do not require a guest-list import or individual invitation links before circulation. Each invited person enters their own name and submits their own reply. This supersedes the earlier fixed-name lookup and preloaded invitation-token design; it does not introduce household replies or plus-one places.
 
-The public design and individual reply preview exist. Actual guest lookup, saved replies, email sending and private administration still need implementation. No production provider or account is selected by this plan.
+Guest wording: “Kindly submit a separate reply for each person named in your invitation.” No additional-person fields or headcount selectors. Collect separate Friday/Saturday attendance, an optional food allergy or intolerance note, and an optional email address for receipts and amendment links. Catering choices remain deferred.
 
-Use a dedicated wedding mailbox for questions, organiser notifications and the reply-to address on guest receipts. Give both Doug and Doreen access and arrange account recovery. A personal mailbox is sufficient for receiving mail; for example, [Gmail supports delegated inbox access](https://support.google.com/mail/answer/138350?hl=en). Automated sending still needs an authenticated connection or mail-delivery provider. Keep its credentials server-side. If sending from a custom domain, configure the sender verification/authentication required by that provider and test actual delivery.
+Anyone with the shared URL can submit; it does not authenticate an invitee. Without a separate invited list, the organisers can count received replies but cannot automatically identify who has not responded. Review unexpected or duplicate entries privately. Do not describe the shared URL as access control.
 
-The confirmation sequence should be:
+The shared-link form, private save/amend API, organiser view and email outbox are implemented and locally tested. The public GitHub Pages site still cannot save replies.
 
-1. Save the named guest's Friday/Saturday answers and optional food note in private storage. A correction replaces the same guest's response.
-2. Show the guest confirmation on the website only when the save succeeds.
-3. Notify the wedding inbox that a reply was received or changed, linking to the private guest list. Do not copy food notes into notification emails.
-4. Send a brief receipt with the attendance choices and an amendment link when an email address is available. A guest invited by message can reply without supplying an email; the website confirmation still applies. Report/retry mail failures without losing or duplicating the saved reply.
+## Save and confirmation sequence
 
-Before connecting the service, choose the wedding inbox, hosting/account owner for the private backend, whether guest email receipts are wanted, and an initial RSVP deadline. A custom website address is optional; choose it before issuing personal links if desired. [GitHub Pages is static hosting](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages), so it can retain the invitation while a separate server function and database receive replies.
+1. Accept one person's name and answers. Validate and save the response privately, assigning an opaque record ID. Use an idempotency key so retrying the same submission does not create another record.
+2. Confirm on screen only after durable storage succeeds. A failed save leaves the draft available in page memory and shows a retryable error.
+3. Issue a private amendment link for that response. Show it on the confirmation page even if the guest supplies no email; explain that they should keep it to change their reply. The common invitation URL cannot reopen existing records by name or email.
+4. Notify the wedding inbox after saving, linking to the private organiser view. Do not copy food notes or guest amendment credentials into organiser notification emails.
+5. If guest receipts are enabled and an address was supplied, send a brief receipt and amendment link. Mail failures must not lose the response or cause a duplicate save; make delivery failures visible to organisers and retry separately.
+6. Authorised amendments update the same record and invalidate stale totals. Check the record version to avoid silently overwriting newer changes from another tab or device.
 
-Supply a private guest list with one row per invited individual: display/full name, contact email if available, intended delivery channel/contact, and which events they are invited to. Do not put this list in the public repository. Invited partners receive separate links. No anonymous plus-one places are created. The organiser view should also allow recording a reply received by telephone or message.
+Email is a notification and correspondence channel. Private storage is the record of attendance. Do not rely on an email inbox alone to reconcile amended responses.
 
-Confirm the ceremony arrangement with the vicar, an initial reply deadline, and which details can follow later. Friday location/activity/time, reception timings, dress guidance and practical access/parking information can be added once settled; menu selection remains deferred. Keep the conditional lift wording and handle actual collection arrangements individually.
+## Proposed deployment
 
-The first production release needs a private guest/response list with Friday/Saturday totals, unanswered guests, per-guest food notes and a CSV export; one revocable invitation link per guest; a way to amend replies; a contact route; and a short explanation of who can see food notes and when they will be deleted. Keep the public invitation separate from guest records and organiser access.
+Keep the code in GitHub. The existing GitHub Pages preview can remain while production is tested. [GitHub Pages serves static sites](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages); receiving and saving replies requires a backend.
 
-Before circulation, run a small pilot with Doug, Doreen and a test invitee: save a reply, reload and reopen it, amend it, verify headcounts and the export, receive both organiser and guest emails where enabled, and try another guest's link without being able to access their record through the first invitation. Test rejected/expired links, failed saves, duplicate submissions and mail failures. Keep a backup/export and test recovery. Only then replace the sample labels and issue real invitations; bulk sending or reminders need explicit instruction.
+The existing recommendation is the same front end with a small Cloudflare Worker API and private D1 database at one production address. [Worker static assets](https://developers.cloudflare.com/workers/static-assets/) allow the invitation and API to share an origin. No provider account, billing arrangement or deployment has been approved or provisioned. Check current service terms and limits when selecting the account.
 
-## Recommended shape
+Protect organiser pages and API routes with separately authenticated Doug/Doreen accounts, for example an explicit [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/) allowlist with server-side token validation. The guest submission form remains accessible without organiser login. Private amendment links authorise access to exactly one response.
 
-Use persistent private storage as the record of replies, with email notifications to the wedding account after a successful save. Email alone is a poor record: corrections and retried submissions can produce conflicting headcounts. Saving the reply must not depend on delivery of a notification.
+Use the supplied wedding inbox for questions, organiser notifications and Reply-To. Both organisers need reliable access and an agreed recovery owner. Automated sending is a separate integration; providing the address does not authenticate a sender. Keep credentials server-side. A verified sender/domain or supported authenticated mailbox connection is needed according to the chosen sending method. Do not impersonate the Gmail address through an unrelated provider.
 
-GitHub Pages can continue serving the review preview. For production, the recommendation below keeps the invitation and API on the same origin, so guest sessions do not depend on cross-site cookies. No provider has been selected or provisioned.
+## Remaining setup
 
-## Concrete launch path — 28 October 2026
-
-The postal editor at `print.html` is implemented. It prints named letters with a reply contact chosen by the organisers. It does not load the guest list, store replies, or configure that contact as an online destination.
-
-Recommended production infrastructure: keep the code in GitHub, and deploy the same front end with a small Cloudflare Worker API and private D1 database at one production address. Cloudflare supports [serving static assets alongside Worker code](https://developers.cloudflare.com/workers/static-assets/); [D1 has usage-based free allowances](https://developers.cloudflare.com/d1/platform/pricing/). This is a proposal, not an activated account or billing commitment. The current GitHub Pages preview can remain available while production is tested. Same-origin hosting supersedes the earlier cross-origin API suggestion for the cookie-based guest-session design.
-
-Protect the organiser pages and their API routes with an allowlist for Doug and Doreen through [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/); the Worker must also validate the Access token. The public guest reply routes use their own per-invitation sessions. Do not place the entire invitation behind organiser login. Test revocation and guest/organiser separation before real records are imported.
-
-The immediate decisions are:
-
-| Decision/input | Needed for |
+| Input or task | Purpose |
 | --- | --- |
-| Dedicated wedding inbox, access for both organisers, and recovery owner | Questions, paper reply contact, organiser notifications, and reply-to address |
-| Production account owner; approve a provider and any spending limit | Hosting the private reply service and database |
-| Final web address: custom domain or hosted address | Stable links before issuing invitations; a domain is also needed for the proposed automated sender |
-| Private named guest list, event permissions, delivery channel and available contact details | One revocable invitation per person; identify postal invitations without exposing addresses publicly |
-| Initial reply deadline | The live form and printed invitations |
-| Guest email receipts: include them or use on-page confirmation only | Scope of the automated mail setup |
+| Verify access to the supplied wedding Gmail, including access for both organisers and recovery | Human correspondence and receiving notifications |
+| Choose the production account owner, provider and any spending limit | Private storage, API and organiser login |
+| Choose a stable hosted address or optional custom domain | One common URL to circulate; amendment links must remain valid |
+| Choose the initial reply deadline | Guest wording, printed invitations and amendment rules |
+| Decide whether guest email receipts are needed at launch and connect the sending route | Receipt delivery and organiser notifications |
+| Implement and test the shared-link form, private response store and organiser view | Replace the current non-transmitting sample |
 
-Use the wedding inbox for human correspondence. Automated delivery is a separate connection: [Resend requires a domain the organisers own and can verify](https://resend.com/docs/dashboard/domains/introduction), so a Gmail address alone would not configure that sender. A personal wedding inbox can still receive the notifications and act as Reply-To. If no domain is wanted, choose a supported authenticated mailbox-sending route instead; do not impersonate the Gmail sender through an unrelated mail service.
-
-Implementation after those choices: private guest import; server-side invitation lookup and reply save/amend; organiser attendance totals, food notes and export; manual entry of telephone or postal replies against the same named guest; mail notifications after successful storage; optional guest receipts. Keep a response source and timestamp so paper, telephone and online amendments do not become duplicate guests.
-
-Before circulation, complete the pilot and release checks below, including a restored backup. [D1 Time Travel](https://developers.cloudflare.com/d1/reference/time-travel/) is one recovery mechanism; retain a separate export and test it. Confirm the vicar and a usable contact route before mailing letters. Friday's location/activity/time and catering choices may follow later, as the invitation already says. Buy no domain, create no paid subscription, and send no invitations merely on the authority of this plan.
-
-Sources checked 28 October 2026. Supabase was also considered; its [free plan currently pauses after a week of inactivity](https://supabase.com/pricing), which is inconvenient for an invitation site that may be quiet between batches. Cloudflare is the present recommendation, not a claim that another provider cannot support the wedding.
+There is no guest-list import requirement. The postal editor at `print.html` remains a separate browser-local tool: entering its reply contact only prints that contact and does not configure online mail delivery.
 
 ## Data and access boundaries
 
-- Named guest: stable ID, display name and specifically allowed event IDs. Each guest responds for themselves, including when two invited people are a couple. There are no household replies, companion places, guest counts, editable guest names or add-person controls.
-- Personal invitation: one guest ID, optional contact email, hashed unguessable access token, revoked/expiry state. Each link grants access to exactly one guest. A real guest list must never be bundled into the public JavaScript.
-- Event: Friday gathering, 16 July 2027; Saturday wedding, 17 July 2027. Saturday begins at 1pm UK local time; Friday's location and time remain unset. Attendance is per guest per event.
-- Reply: guest ID + event ID as a unique key, yes/no for Saturday and yes/no/uncertain for Friday. A later amendment replaces the same record. Preserve an organiser-visible update timestamp/version.
-- Food allergy or intolerance note: optional text, at most 1,000 characters, belonging to the individual guest. No menu selections while catering remains undecided. Exclude notes for people declining both events from catering exports.
-- Organiser: separately authenticated Doug/Doreen accounts, least-privilege administrative access. A public link or invitation token is not an administrator credential.
+- Response: opaque stable ID; guest-entered full name; optional contact email; Friday and Saturday answers; optional food note; source; creation/update timestamps; version. A name or email is not a credential or reliable unique key. Different people may share either; never overwrite or merge records solely because they match.
+- Attendance: yes/no for Saturday 17 July 2027, and yes/no/uncertain for Friday 16 July. Saturday begins at 1pm UK local time; Friday's location and hour remain unset. Allow complete decline and attendance on either day alone.
+- Food allergy or intolerance note: optional, at most 1,000 characters. Use only for wedding arrangements, with a clear guest notice about organiser and relevant catering access. Exclude notes for people declining both events from catering exports. No menu selections yet.
+- Amendment credential: cryptographically random bearer token, stored only as a hash, tied to one response, revocable and never disclosed by a public name/email lookup. Possession permits reading and changing that response, so keep it private.
+- Organiser: independent authentication and authorisation. The common URL or an amendment token never grants administrative access. All response lists, exports and food notes remain private.
 
-Personal-link tokens should not go into third-party URLs or page analytics. Prefer a URL fragment consumed by the application and exchanged for a short-lived secure session, then remove it from browser history. Store only a hash of the long-lived invitation token; make it revocable. Keep the site and API on one origin, derive the guest identity from the authenticated invitation and validate event permission server-side, use secure HttpOnly cookies, protect writes against CSRF, and rate-limit lookup/write endpoints. Ignore client-supplied guest identity and reject attempts to write replies for another guest. A link is a bearer credential: it can be forwarded, so it identifies the invitation rather than proving who holds it. Keep it private and revocable. Client-side checks alone provide no access control.
+Prefer a fragment-based amendment URL exchanged for a secure HttpOnly session, then remove the token from the URL. Keep the app and API on one origin, enforce CSRF protection on authenticated writes and derive response identity server-side. Reject client attempts to change other records. Do not expose tokens to analytics, third-party URLs or logs.
 
-## Guest flow
-
-1. Open a personal invitation link and show that guest's fixed name and allowed events.
-2. Ask ‘Will you join us?’ and give separate Friday/Saturday answers for that individual. Explain ‘Please reply for yourself; each guest has a separate invitation.’ Do not offer extra names or a headcount selector.
-3. Add optional food allergy or intolerance notes. Explain that these are for wedding arrangements and only the organisers/relevant catering recipients will receive them.
-4. Review; save one transaction with an idempotency key and record version.
-5. Confirm only after durable storage succeeds. Show a retryable error if it fails; retain the unsent draft in page memory.
-6. Allow an authorised return visit and amendments before the chosen deadline. Detect conflicting versions from separate tabs or devices instead of silently overwriting a newer reply.
-7. Send email notification after saving, without placing allergy or intolerance text in the email. An email failure must leave the saved response intact and be visible to organisers.
+Rate-limit public submissions and email delivery, validate inputs server-side, enforce request-size limits and include a bot trap. Do not send repeated receipts merely because someone repeatedly submits another person's email. The precise abuse controls should be selected and tested with the chosen backend. Never present a rate limit or bot check as proof that someone was invited.
 
 ## Private organiser view
 
-Import/review a CSV of named individual guests; inspect import errors before writing. View Friday yes/no/uncertain totals and Saturday yes/no totals separately, with unanswered invitations visible. Edit an invitation, revoke a link, and record telephone replies with the same rules as guest replies. Export attendance and a minimal catering/allergy-and-intolerance list separately. Quote/escape CSV cells and neutralise spreadsheet formula prefixes. Protect exports and backups; define deletion/archive arrangements after the wedding.
+Show received individual replies with separate Friday yes/no/uncertain and Saturday yes/no totals. Do not display an invented count of unanswered invitations. Allow authorised review of suspected duplicates and unexpected responses; never silently combine them. Allow recording a telephone or postal reply and updating a selected existing record, with source and timestamp visible.
 
-## Release checks before accepting real replies
+Provide attendance and minimal catering exports separately. Escape CSV cells and neutralise spreadsheet formula prefixes. Protect backups and exports; choose post-wedding deletion/archive arrangements. Give organisers a way to revoke or replace an amendment link when a guest has lost it, after checking the request outside the public name lookup.
 
-Verify wrong/expired/revoked tokens, cross-guest access attempts, guest-identity substitution, companion injection and event tampering; distinct links for two invited partners; Friday-only and Saturday-only attendance; complete decline; empty and maximum-length allergy or intolerance notes; duplicate submits; amendments/version conflicts; deadline/time-zone handling; database failure, offline retry and email failure; separate organiser access; export totals; backup and restore. Confirm the live privacy notice and wedding contact route before turning off the preview labels.
+## Release checks
+
+Pilot with Doug, Doreen and invented guest data. Verify initial save, reload and amendment-link reopening; same-name guests staying separate; retry idempotency; simultaneous amendments; Friday-only, Saturday-only and complete decline; optional email; empty and maximum-length food notes; deadline and UK time-zone handling; invalid/revoked tokens and cross-response access attempts; rejected fields and bot/rate-limit behaviour; failed/offline saves and mail failures; organiser access; accurate totals and safe exports. Restore a backup before collecting real replies.
+
+Confirm the live contact route and privacy wording before removing preview labels. Test real mail delivery only with explicitly chosen test recipients. Confirm the ceremony arrangement with the vicar and an initial reply deadline. Friday's location/activity/hour and catering details may follow later. Buy no domain, create no paid subscription, and send no invitations merely on the authority of this plan.

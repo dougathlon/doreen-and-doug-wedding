@@ -1,32 +1,27 @@
-export const sampleGuest = { id: "example-guest", name: "Example Guest" };
-
 export function blankReply() {
-  return { friday: "", saturday: "", allergies: "" };
+  return { name: "", email: "", friday: "", saturday: "", allergies: "" };
 }
 
 export function validateReply(reply) {
   const errors = {};
-  if (!["yes", "no", "unsure"].includes(reply.friday)) {
-    errors.friday = "Please choose your Friday answer.";
+  if (typeof reply.name !== "string" || !reply.name.trim() || reply.name.trim().length > 100 || /[\x00-\x1f\x7f]/.test(reply.name)) {
+    errors.name = "Please give your full name, using no more than 100 characters.";
   }
-  if (!["yes", "no"].includes(reply.saturday)) {
-    errors.saturday = "Please choose your Saturday answer.";
+  if (typeof reply.email !== "string" || reply.email.length > 254 || (reply.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(reply.email.trim()))) {
+    errors.email = "Please check the email address, or leave it blank.";
   }
+  if (!["yes", "no", "unsure"].includes(reply.friday)) errors.friday = "Please choose your Friday answer.";
+  if (!["yes", "no"].includes(reply.saturday)) errors.saturday = "Please choose your Saturday answer.";
   if (typeof reply.allergies !== "string" || reply.allergies.length > 1000) {
     errors.allergies = "Please keep notes about food allergies or intolerances to 1,000 characters.";
   }
   return errors;
 }
 
-export function reviewReply(guest, reply) {
-  const { friday, saturday, allergies } = reply;
+export function reviewReply(reply) {
   return {
-    id: guest.id,
-    name: guest.name,
-    friday,
-    saturday,
-    allergies: friday === "no" && saturday === "no" ? "" : allergies.trim(),
+    name: reply.name.trim(), email: reply.email.trim(), friday: reply.friday, saturday: reply.saturday,
+    allergies: reply.friday === "no" && reply.saturday === "no" ? "" : reply.allergies.trim(),
   };
 }
-
 export const answerLabel = { yes: "Will attend", no: "Will not attend", unsure: "Not yet certain" };

@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "doreen-and-doug-rsvp",
+  "main": "server/worker.js",
+  "compatibility_date": "2026-10-28",
+  "assets": { "directory": "./dist/client", "binding": "ASSETS", "run_worker_first": true },
+  "d1_databases": [{ "binding": "DB", "database_name": "wedding-rsvp", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "server/migrations" }],
+  "triggers": { "crons": ["*/5 * * * *"] },
+  "observability": { "enabled": false },
+  "vars": {
+    "RSVP_OPEN": "false",
+    "PUBLIC_ORIGIN": "https://REPLACE_WITH_PRODUCTION_HOST",
+    "ACCESS_TEAM_DOMAIN": "https://REPLACE.cloudflareaccess.com",
+    "ACCESS_AUD": "",
+    "ADMIN_EMAILS": "",
+    "GUEST_RECEIPTS": "false",
+    "RSVP_DEADLINE": ""
+  }
+}

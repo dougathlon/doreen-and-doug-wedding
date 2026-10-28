@@ -1,0 +1,11 @@
+import { readFileSync } from "node:fs";
+const config = JSON.parse(readFileSync("wrangler.production.jsonc", "utf8"));
+const fail = (message) => { console.error(message); process.exit(1); };
+if (config.main !== "server/worker.js") fail("Production must use server/worker.js; never deploy the local demo entry point.");
+if (!config.d1_databases?.[0]?.database_id || /^(local|00000000)/.test(config.d1_databases[0].database_id)) fail("Configure the production D1 database ID.");
+const vars = config.vars || {};
+if (!/^https:\/\/[^/]+$/.test(vars.PUBLIC_ORIGIN) || /REPLACE/.test(vars.PUBLIC_ORIGIN)) fail("Set the real production origin.");
+for (const name of ["ACCESS_TEAM_DOMAIN", "ACCESS_AUD", "ADMIN_EMAILS"]) if (!vars[name] || /REPLACE/.test(vars[name])) fail(`Configure ${name} before deploying.`);
+if (vars.TOKEN_SECRET || vars.RESEND_API_KEY) fail("Set credentials with Wrangler secrets, never in deployment configuration.");
+if (vars.RSVP_DEADLINE && !Number.isFinite(Date.parse(vars.RSVP_DEADLINE))) fail("Use an ISO timestamp with a time zone for the deadline.");
+console.log("Production configuration checked. Verify Worker secrets and Access policies before opening replies.");

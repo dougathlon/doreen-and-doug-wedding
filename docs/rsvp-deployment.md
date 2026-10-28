@@ -1,0 +1,45 @@
+# RSVP deployment and operation
+
+## Implemented, not yet live
+
+The guest form and private response service are implemented. Production is not connected. The existing GitHub Pages address remains a non-transmitting preview when no `/api/config` service is available.
+
+The Cloudflare Worker in `server/worker.js` serves the same built invitation and a D1-backed API. `server/local-worker.js` is a separate local demonstration entry point with no email delivery. Never deploy it. The inherited Sites worker and packaging files remain unchanged.
+
+Doug confirmed that he has a Cloudflare account on 28 October 2026. The dashboard account was found. Wrangler authorisation is pending; no remote database or Worker has been created by this work. Doreen has access to the wedding Gmail; the application does not need to read that mailbox.
+
+## Local verification
+
+Run `npm run dev:rsvp`. This builds the site, applies migrations to a separate local database and serves the app on `http://127.0.0.1:4187`. The organiser screen is `/admin.html` (the asset service may redirect to `/admin`; both routes are guarded in production). Use invented details only. The local database and CLI configuration are under ignored `.wrangler/`. The wrapper keeps logs and configuration in the workspace rather than writing to the user's global configuration.
+
+Run `npm test`, `npm run build`, and `npm run check:rsvp`. Tests exercise real SQLite through a D1-compatible test adapter; the browser preview also runs the real local Workers/D1 runtime. The test suite includes a database backup/restore check. Production Access and email delivery still require separate end-to-end verification. Node 22.13 or later is required for the SQLite tests.
+
+The local preview saves replies across reloads and process restarts. GitHub Pages only serves static assets and does not save replies. A browser confirmation says “received” only after a server save; the static preview says that nothing is saved.
+
+Verified 28 October 2026: 31 automated tests passed, the Vite build and Worker deployment dry run passed, and the dependency audit reported no known vulnerabilities. Browser checks used invented entries to confirm saving, reloading, private-link reopening, amendments, and a postal reply updating the same totals. Real production login, real email delivery and narrow mobile rendering remain unverified.
+
+## Connect production
+
+1. Authorise Wrangler with the selected Cloudflare account. The pending request asks for account/user read, Workers scripts write, D1 write and background access. It is account-wide; authorisation requires the user's approval. Use `node scripts/wrangler.mjs` for all CLI calls so this checkout uses its own ignored credential location. Do not print credentials or add them to Git.
+2. Choose the production URL and organiser login identities. The account owns an existing domain, but no wedding subdomain or email-sending domain has been selected. Do not change its DNS or mail setup without resolving that choice. A hosted address is sufficient for the invitation itself.
+3. Create a dedicated D1 database, copy `wrangler.example.jsonc` to ignored `wrangler.production.jsonc`, and set the account ID, database ID and production origin. Apply `server/migrations` to that database with `d1 migrations apply ... --remote --config wrangler.production.jsonc`.
+4. Configure Cloudflare Access for both `/admin*` and `/api/admin/*` on the production host, allowing only the agreed organiser identities. Both paths must be in the same Access application/audience. Set `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD` and `ADMIN_EMAILS`; the Worker verifies JWT signature, issuer, audience, expiry and its own email allowlist. Do not protect the entire invitation with organiser login. Verify that `/admin`, `/admin/`, `/admin.html` and the APIs all require authentication.
+5. Set a cryptographically random `TOKEN_SECRET` of at least 32 characters with `wrangler secret put`. This secret deterministically derives amendment tokens; keep it backed up outside the repository. Changing it without a planned token migration breaks reconstruction of existing amendment links and guest receipts. Tokens are hashed in D1; cookies store independent, expiring session credentials.
+6. Set `WEDDING_CONTACT_EMAIL` as a Worker secret from the locally recorded mailbox. Once production is configured it is also the guest-facing contact route returned by the API. No Gmail credentials are needed.
+7. Connect the outbound sender. The included adapter uses Resend's HTTP API with `RESEND_API_KEY` and `MAIL_FROM`. It requires an authenticated sender supported by that provider, normally a verified domain. Set Gmail as Reply-To, not as an unverified From address. Neither a Resend account nor a sender domain is configured. Doreen may need to confirm a verification email. No test mail has been sent.
+8. Keep `RSVP_OPEN=false` while testing. `GUEST_RECEIPTS=true` enables receipts when mail credentials are present; otherwise the form promises only on-page confirmation and a private amendment link. `RSVP_DEADLINE` is optional; use an explicit ISO timestamp and timezone if supplied. Display dates use Europe/London. No deadline has been invented.
+9. Run the deployment check and deploy. Pilot with invented records and explicitly selected test recipients. Verify private access, saves, amendments, mail delivery and exports, then open replies deliberately. Only circulate the final URL after this pilot. Do not send invitations automatically.
+
+Reference contracts: [Worker static assets](https://developers.cloudflare.com/workers/static-assets/binding/), [D1 batches](https://developers.cloudflare.com/d1/worker-api/d1-database/), [Access JWT verification](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/authorization-cookie/validating-json/), [Resend send-email API](https://resend.com/docs/api-reference/emails/send-email). Checked 28 October 2026.
+
+## Records, privacy and recovery
+
+- The shared URL has no invited-person allowlist. Received responses can be reviewed and excluded from totals. It cannot identify nonresponders without a separate invitation list.
+- A new response gets an opaque ID and a private amendment link. Names and email addresses are not unique identifiers. Initial submission retries are idempotent, and version checks prevent conflicting amendments. A stale tab cannot amend another person's reply after the browser session changes.
+- The server checks origin, JSON content type, field allowlists, request size, per-IP rate limits and a bot trap. Rate-limit identifiers are hashed with a server secret. Session and rate-limit rows expire and are cleaned by the scheduled handler. Public abuse remains possible; inspect unexpected entries and review rate limits if the link is widely shared.
+- A database trigger queues notification work in the same transaction as the save. Food notes never enter the email outbox or email text. Pending mail is retried by the scheduled handler every five minutes and after saves; the organiser page reports failures. Resend idempotency keys expire after 24 hours, so automatic retries stop after 23 hours from the first attempt. Check the provider's delivery record before manually resending an uncertain message.
+- Pending guest receipts are cancelled when the name, destination, attendance answers, inclusion status or private link no longer match the saved receipt. An older queued message must not report superseded attendance answers.
+- Lost-link replacement revokes the previous link and existing sessions. Check a guest's request outside the public form before handing out a replacement. Guest exclusion also blocks access and removes the response from headcounts; it preserves the original record for review.
+- Organisers can record telephone/postal replies, amend entries, exclude duplicates, replace links and download attendance or minimal catering CSVs. Guest receipts are not automatically sent for organiser edits. CSV cells are escaped and formula prefixes neutralised.
+- Back up the production database and `TOKEN_SECRET` separately. Before circulation, export and restore a production-equivalent test database. Attendance CSVs are useful operational copies but do not contain the amendment/session data needed for a full restore.
+- Food notes are for wedding arrangements and relevant catering recipients. Arrange removal after the wedding as stated in the form; automatic post-wedding deletion is not implemented. Do not store guest exports or credentials in the public repository. Production request-body logging is not enabled.

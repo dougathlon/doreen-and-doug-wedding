@@ -8,14 +8,21 @@
     "build": "vite build && node scripts/prepare-sites-build.mjs",
     "preview": "vite preview",
     "test": "node --test tests/*.test.mjs",
-    "test:sites": "node --test tests/sites-worker.test.mjs"
+    "test:sites": "node --test tests/sites-worker.test.mjs",
+    "dev:rsvp": "npm run build && node scripts/wrangler.mjs d1 migrations apply wedding-rsvp-local --local --config wrangler.local.jsonc && node scripts/wrangler.mjs dev --config wrangler.local.jsonc --ip 127.0.0.1 --port 4187",
+    "deploy:rsvp": "npm run build && npm test && node scripts/check-rsvp-deployment.mjs && node scripts/wrangler.mjs deploy --config wrangler.production.jsonc",
+    "check:rsvp": "node scripts/wrangler.mjs deploy --dry-run --config wrangler.example.jsonc --outdir dist/rsvp-worker"
   },
   "dependencies": {
     "@vitejs/plugin-react": "5.0.4",
     "html-to-image": "1.11.13",
+    "jose": "6.2.13",
     "pdf-lib": "1.17.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "vite": "6.4.2"
+    "vite": "6.4.5"
+  },
+  "devDependencies": {
+    "wrangler": "4.155.0"
   }
 }

@@ -7,3 +7,7 @@ qa/
 *.log
 
 asset-review/
+
+.wrangler/
+.dev.vars*
+wrangler.production.jsonc

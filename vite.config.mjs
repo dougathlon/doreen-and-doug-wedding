@@ -9,6 +9,7 @@ export default defineConfig({
       input: {
         invitation: "index.html",
         print: "print.html",
+        admin: "admin.html",
       },
     },
   },

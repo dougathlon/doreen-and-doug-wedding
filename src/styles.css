@@ -141,3 +141,24 @@ dd { margin: 0; overflow-wrap: anywhere; }
 @media (max-width: 360px) { .navigation { gap: 17px; } .particulars { padding-inline: 19px; } .invitation-inner { padding-inline: 8px; } .invitation-date { font-size: 17px; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
 @media print { :root { background: white; } .preview-banner, .navigation, .preview-footer, .skip-link, .particulars, .calendar-link, .invitation .button { display: none; } main { width: 100%; margin: 0; } .paper { box-shadow: none; } .invitation { break-inside: avoid; } }
+
+.reply-field { margin-bottom: 26px; }
+.reply-field label, .private-link label { display: block; margin-bottom: 6px; }
+.reply-field input, .private-link input { width: 100%; min-height: 49px; padding: 10px 12px; border: 1px solid var(--rule); background: #fffbef70; color: var(--ink); border-radius: 0; }
+.private-link { margin: 25px 0; text-align: left; }
+.private-link input { font-family: monospace; font-size: 13px; }
+.bot-trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+button:disabled { opacity: .55; cursor: wait; }
+.quiet-button { color: var(--muted); background: none; border: 0; text-decoration: underline; text-underline-offset: 4px; padding: 14px 0; cursor: pointer; font-size: 15px; }
+.admin-page { margin-bottom: 35px; }
+.admin-page header { margin-bottom: 30px; }
+.admin-toolbar { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0; }
+.admin-totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 16px; }
+.admin-totals p { border: 1px solid var(--rule); padding: 18px; font-size: 16px; }
+.admin-totals strong { display: block; font-size: 28px; }
+.admin-entry { border-top: 1px solid var(--rule); padding: 22px 0; }
+.admin-entry summary { cursor: pointer; font-size: 22px; overflow-wrap: anywhere; }
+.admin-entry .reply-form { margin-top: 25px; }
+.admin-field { display: block; margin: 18px 0; }
+.admin-field select { display: block; font: inherit; padding: 9px; margin-top: 6px; width: 100%; background: var(--paper); color: var(--ink); }
+.admin-title { font-size: 62px; text-transform: none; margin-bottom: 22px; }
