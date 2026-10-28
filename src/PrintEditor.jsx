@@ -43,7 +43,7 @@ export function PrintEditor() {
   const recipients = prepared.recipients.slice(0, printLimits.guests);
 
   useEffect(() => {
-    const observer = new ResizeObserver(([entry]) => setScale(Math.min(1, entry.contentRect.width / (190 * 96 / 25.4))));
+    const observer = new ResizeObserver(([entry]) => setScale(Math.min(1, entry.contentRect.width / (210 * 96 / 25.4))));
     observer.observe(preview.current);
     return () => observer.disconnect();
   }, []);
@@ -123,8 +123,9 @@ export function PrintEditor() {
         {pdfUrl && <p className="field-hint" role="status">Your PDF is ready. <a href={pdfUrl} download="doreen-and-doug-postal-invitations.pdf">Download it again</a>.</p>}
         <button type="submit" value="browser" className="button secondary print-browser" disabled={printing}>Print in browser</button>
         <button type="button" className="print-clear" disabled={printing} onClick={() => { change(setNames, ""); setAttempted(false); }}>Clear the names</button>
-        <p className="field-hint print-settings">The PDF includes the paper and artwork at print resolution, with one A4 page per person. Print it at <strong>actual size / 100%</strong>. To change the names, edit this form and download a new PDF.</p>
-        <p className="field-hint">For browser printing, choose <strong>A4</strong>, <strong>100% scale</strong>, <strong>headers and footers off</strong> and <strong>background graphics on</strong>. The editor controls are omitted.</p>
+        <p className="field-hint print-settings">The PDF includes the paper and artwork at print resolution, with one A4 page per person and cream paper to the page edges. Print it at <strong>actual size / 100%</strong>. To change the names, edit this form and download a new PDF.</p>
+        <p className="field-hint">For paper colour to reach the edges of a physical sheet, choose <strong>borderless A4</strong> if your printer supports it. Otherwise, a printer may leave a white margin; a print shop can trim a larger sheet to A4.</p>
+        <p className="field-hint">For browser printing, choose <strong>A4</strong>, <strong>no margins</strong>, <strong>100% scale</strong>, <strong>headers and footers off</strong> and <strong>background graphics on</strong>. The editor controls are omitted.</p>
       </form>
       <div className="print-preview" ref={preview} style={{ "--preview-scale": scale }}>
         <p className="print-preview-label">Print preview · A4</p>

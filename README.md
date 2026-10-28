@@ -14,6 +14,8 @@ This is a public GitHub Pages site and public source repository. `noindex` disco
 
 Open `print.html` to prepare named A4 letters. Enter one name per line (up to 50), add an email, phone number or return address for replies, and optionally set a reply deadline. Download PDF generates one A4 page per person locally in the browser; Print in browser is also available. The PDF uses 300-dpi page images so the portrait, paper, fonts and wording match the preview. Print at actual size / 100%. Edit the form to change the wording fields and export again; the PDF itself is not an editable form.
 
+Cream paper covers the full A4 PDF page, with no white outer margin. The decorative rule and text remain inset. Physical printing to the sheet edges requires borderless A4 support, or printing on a larger sheet and trimming. For browser printing, select A4, no margins, 100% scale, background graphics on, and headers/footers off.
+
 Names and reply contacts are held only in page memory and clear on reload. Keep the original guest list separately. Nothing is uploaded, and no real guest names or contact details are included in the repository. The preparation tool is a public, empty utility, not an authenticated organiser dashboard or RSVP endpoint. Its contact field prints a reply route on the paper invitation; it does not configure automated email.
 
 ## Development
