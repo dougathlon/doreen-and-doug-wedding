@@ -10,6 +10,12 @@ The public invitation, weekend information, hotel links, brief travel guidance a
 
 This is a public GitHub Pages site and public source repository. `noindex` discourages indexing; it does not provide access control. Keep all guest lists, personal invitation tokens, contact addresses, allergy notes and credentials out of this repository. The artwork, names, event dates and venue information are public in this preview.
 
+## Postal invitations
+
+Open `print.html` to prepare named A4 letters. Enter one name per line (up to 50), add an email, phone number or return address for replies, and optionally set a reply deadline. Download PDF generates one A4 page per person locally in the browser; Print in browser is also available. The PDF uses 300-dpi page images so the portrait, paper, fonts and wording match the preview. Print at actual size / 100%. Edit the form to change the wording fields and export again; the PDF itself is not an editable form.
+
+Names and reply contacts are held only in page memory and clear on reload. Keep the original guest list separately. Nothing is uploaded, and no real guest names or contact details are included in the repository. The preparation tool is a public, empty utility, not an authenticated organiser dashboard or RSVP endpoint. Its contact field prints a reply route on the paper invitation; it does not configure automated email.
+
 ## Development
 
 Node 22 or later. Run `npm ci`, then `npm run dev`. The development server runs Vite/React. Run `npm run build` followed by `npm test` before publishing. There is no linter or type-checker configured in the supplied JavaScript starter. The build checks JSX/module compilation; Node's test runner covers response rules and the retained starter worker contract.

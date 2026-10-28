@@ -39,3 +39,13 @@ Travel now consists of two short paragraphs and a National Rail link. Venue map 
 The chosen church is St Michael & All Angels, with a 1pm ceremony at Doug's instruction; the vicar's confirmation is still pending. The calendar now represents Saturday as 12:00 UTC / 1pm UK local time, with no invented end time; Friday stays all-day. Food wording includes allergies and intolerances throughout.
 
 The production build and all 11 tests pass. Tests cover individual response rules, exclusion of added/renamed guest data from the review, calendar time-zone conversion and the retained worker packaging. Individual invitation links and server-side guest access remain planned, not implemented, pending the named guest list and RSVP destination.
+
+## Postal editor — 28 October 2026
+
+Separate `print.html` preparation page using the existing unmodified portrait, local fonts, paper and fleurons. Each entered name produces one A4 letter. Reply contact is required; deadline is optional. No automatic companion places, submitted names, browser storage or guest records. Editing fields invalidates the previous PDF link.
+
+Checked missing-field validation, two-name output, a long hyphenated name, native deadline edits, and 390px layout with viewport/document width both 390px. The preview scales to 362px within the mobile page. Node tests cover punctuation, duplicate names retained intentionally, missing contact, bounded inputs, invalid dates and timezone-stable deadline formatting.
+
+Direct Download PDF generated two A4 pages (595.28 by 841.89 points), 5.7 MB, one for each invented test name. Downloaded through the browser after permission, rendered both pages with Poppler and visually inspected both: correct portrait, fonts, deadline and reply contact; no clipped text, extra pages or controls. Local evidence is in `qa/postal-pdf/` and is excluded from publication. PDF pages are 300-dpi raster images of the invitation, so edits belong in the browser form rather than in the PDF. The browser-print dialog could not be inspected through the available UI; direct PDF export is the verified output route.
+
+The two PDF-generation libraries load only when exporting, outside the guest invitation's bundle. No new remote service receives names or generates documents. All 15 tests and the production build passed. Online RSVP collection remains unconfigured. Also corrected the stale Friday School reference in the no-JavaScript fallback.

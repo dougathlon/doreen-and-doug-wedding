@@ -31,7 +31,34 @@ Before circulation, run a small pilot with Doug, Doreen and a test invitee: save
 
 Use persistent private storage as the record of replies, with email notifications to the wedding account after a successful save. Email alone is a poor record: corrections and retried submissions can produce conflicting headcounts. Saving the reply must not depend on delivery of a notification.
 
-GitHub Pages can continue serving the invitation. A small HTTPS API and private database can supply the RSVP and organiser views later. Choose infrastructure together with the wedding account; no provider lock-in is introduced in this preview.
+GitHub Pages can continue serving the review preview. For production, the recommendation below keeps the invitation and API on the same origin, so guest sessions do not depend on cross-site cookies. No provider has been selected or provisioned.
+
+## Concrete launch path — 28 October 2026
+
+The postal editor at `print.html` is implemented. It prints named letters with a reply contact chosen by the organisers. It does not load the guest list, store replies, or configure that contact as an online destination.
+
+Recommended production infrastructure: keep the code in GitHub, and deploy the same front end with a small Cloudflare Worker API and private D1 database at one production address. Cloudflare supports [serving static assets alongside Worker code](https://developers.cloudflare.com/workers/static-assets/); [D1 has usage-based free allowances](https://developers.cloudflare.com/d1/platform/pricing/). This is a proposal, not an activated account or billing commitment. The current GitHub Pages preview can remain available while production is tested. Same-origin hosting supersedes the earlier cross-origin API suggestion for the cookie-based guest-session design.
+
+Protect the organiser pages and their API routes with an allowlist for Doug and Doreen through [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/); the Worker must also validate the Access token. The public guest reply routes use their own per-invitation sessions. Do not place the entire invitation behind organiser login. Test revocation and guest/organiser separation before real records are imported.
+
+The immediate decisions are:
+
+| Decision/input | Needed for |
+| --- | --- |
+| Dedicated wedding inbox, access for both organisers, and recovery owner | Questions, paper reply contact, organiser notifications, and reply-to address |
+| Production account owner; approve a provider and any spending limit | Hosting the private reply service and database |
+| Final web address: custom domain or hosted address | Stable links before issuing invitations; a domain is also needed for the proposed automated sender |
+| Private named guest list, event permissions, delivery channel and available contact details | One revocable invitation per person; identify postal invitations without exposing addresses publicly |
+| Initial reply deadline | The live form and printed invitations |
+| Guest email receipts: include them or use on-page confirmation only | Scope of the automated mail setup |
+
+Use the wedding inbox for human correspondence. Automated delivery is a separate connection: [Resend requires a domain the organisers own and can verify](https://resend.com/docs/dashboard/domains/introduction), so a Gmail address alone would not configure that sender. A personal wedding inbox can still receive the notifications and act as Reply-To. If no domain is wanted, choose a supported authenticated mailbox-sending route instead; do not impersonate the Gmail sender through an unrelated mail service.
+
+Implementation after those choices: private guest import; server-side invitation lookup and reply save/amend; organiser attendance totals, food notes and export; manual entry of telephone or postal replies against the same named guest; mail notifications after successful storage; optional guest receipts. Keep a response source and timestamp so paper, telephone and online amendments do not become duplicate guests.
+
+Before circulation, complete the pilot and release checks below, including a restored backup. [D1 Time Travel](https://developers.cloudflare.com/d1/reference/time-travel/) is one recovery mechanism; retain a separate export and test it. Confirm the vicar and a usable contact route before mailing letters. Friday's location/activity/time and catering choices may follow later, as the invitation already says. Buy no domain, create no paid subscription, and send no invitations merely on the authority of this plan.
+
+Sources checked 28 October 2026. Supabase was also considered; its [free plan currently pauses after a week of inactivity](https://supabase.com/pricing), which is inconvenient for an invitation site that may be quiet between batches. Cloudflare is the present recommendation, not a claim that another provider cannot support the wedding.
 
 ## Data and access boundaries
 
@@ -42,7 +69,7 @@ GitHub Pages can continue serving the invitation. A small HTTPS API and private 
 - Food allergy or intolerance note: optional text, at most 1,000 characters, belonging to the individual guest. No menu selections while catering remains undecided. Exclude notes for people declining both events from catering exports.
 - Organiser: separately authenticated Doug/Doreen accounts, least-privilege administrative access. A public link or invitation token is not an administrator credential.
 
-Personal-link tokens should not go into third-party URLs or page analytics. Prefer a URL fragment consumed by the application and exchanged for a short-lived secure session, then remove it from browser history. Store only a hash of the long-lived invitation token; make it revocable. Restrict CORS to the deployed origin, derive the guest identity from the authenticated invitation and validate event permission server-side, use secure HttpOnly cookies, protect writes against CSRF, and rate-limit lookup/write endpoints. Ignore client-supplied guest identity and reject attempts to write replies for another guest. A link is a bearer credential: it can be forwarded, so it identifies the invitation rather than proving who holds it. Keep it private and revocable. Client-side checks alone provide no access control.
+Personal-link tokens should not go into third-party URLs or page analytics. Prefer a URL fragment consumed by the application and exchanged for a short-lived secure session, then remove it from browser history. Store only a hash of the long-lived invitation token; make it revocable. Keep the site and API on one origin, derive the guest identity from the authenticated invitation and validate event permission server-side, use secure HttpOnly cookies, protect writes against CSRF, and rate-limit lookup/write endpoints. Ignore client-supplied guest identity and reject attempts to write replies for another guest. A link is a bearer credential: it can be forwarded, so it identifies the invitation rather than proving who holds it. Keep it private and revocable. Client-side checks alone provide no access control.
 
 ## Guest flow
 

@@ -5,6 +5,12 @@ export default defineConfig({
   base: "./",
   build: {
     outDir: "dist/client",
+    rollupOptions: {
+      input: {
+        invitation: "index.html",
+        print: "print.html",
+      },
+    },
   },
   optimizeDeps: {
     include: ["react", "react-dom/client"],
