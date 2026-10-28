@@ -13,7 +13,7 @@ function PrintedInvitation({ name, contact, deadline }) {
       <p className="print-preface">Your Company is requested<br /><span>at the Marriage of</span></p>
       <h2 className="print-couple">Doreen <em>&</em> Doug</h2>
       <p className="print-date">Saturday, the Seventeenth of July<br /><span>Two Thousand & Twenty-Seven</span></p>
-      <p className="print-time">At one o’clock in the afternoon (1pm).</p>
+      <p className="print-time">At one o’clock in the afternoon.</p>
       <p className="print-venue">{wedding.church}<span>{wedding.churchAddress}</span></p>
       <p className="print-reception"><em>and afterwards at</em> {wedding.school}<span>{wedding.schoolAddress}</span></p>
       <p className="print-friday">For those arriving on Friday, the Sixteenth of July,<br />there will be a gathering. The place and hour will follow.</p>

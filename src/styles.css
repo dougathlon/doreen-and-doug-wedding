@@ -32,12 +32,12 @@ main { width: min(940px, calc(100% - 56px)); margin: 34px auto 0; }
 .invitation-inner { padding: 16px 42px 18px; border: 4px double #765a36; }
 .ornament { width: 135px; height: 45px; object-fit: contain; display: block; margin: 20px auto; }
 .crest { width: 195px; height: 65px; margin: 0 auto 8px; }
-.portrait-frame { padding: 5px; border: 4px double #64492b; }
+.portrait-frame { width: 88%; max-width: 660px; margin-inline: auto; padding: 5px; border: 4px double #64492b; }
 .portrait { display: block; width: 100%; height: auto; }
-.invitation-words { padding: 35px 14px 15px; }
-.invitation-preface { text-transform: uppercase; font-size: 19px; letter-spacing: .075em; line-height: 1.7; margin-bottom: 21px; }
+.invitation-words { padding: 40px 14px 20px; }
+.invitation-preface { text-transform: uppercase; font-size: 19px; letter-spacing: .075em; line-height: 1.7; margin-bottom: 28px; }
 .invitation-preface span { font-size: 14px; letter-spacing: .19em; }
-h1 { font-family: "Cormorant", Georgia, serif; font-size: clamp(70px, 10vw, 111px); font-weight: 500; line-height: .87; text-transform: uppercase; letter-spacing: .025em; margin-bottom: 0; }
+h1 { font-family: "Cormorant", Georgia, serif; font-size: clamp(70px, 10vw, 111px); font-weight: 500; line-height: 1; text-transform: uppercase; letter-spacing: .025em; margin-bottom: 0; }
 h1 > span:not(.sr-only) { display: block; }
 h1 em { display: block; font-family: "Fell", Georgia, serif; font-size: .40em; font-style: italic; text-transform: none; line-height: 1.7; }
 .invitation-date { font-size: 24px; line-height: 1.5; margin-bottom: 26px; }
@@ -47,7 +47,7 @@ h1 em { display: block; font-family: "Fell", Georgia, serif; font-size: .40em; f
 .invitation-afterwards { line-height: 1.5; }
 .invitation-afterwards em { font-size: 18px; }
 .invitation-afterwards span { font-family: "Cormorant", Georgia, serif; font-size: 34px; font-weight: 500; }
-.time-note { font-size: 15px; color: var(--muted); margin: 22px 0; }
+.time-note { font-size: 16px; color: var(--muted); margin: 26px 0; }
 .button { border: 1px solid var(--ink); background: var(--ink); color: #f8efd9; display: inline-flex; align-items: center; justify-content: center; min-height: 49px; padding: 11px 25px; cursor: pointer; text-decoration: none; font-size: 18px; line-height: 1.35; border-radius: 0; transition: background-color 120ms; }
 .button:hover { background: #634729; text-decoration: none; }
 .button.secondary { background: transparent; color: var(--ink); }
@@ -113,7 +113,7 @@ dd { margin: 0; overflow-wrap: anywhere; }
   .invitation-inner { padding: 9px 13px 12px; }
   .crest { width: 150px; height: 50px; margin-bottom: 4px; }
   .portrait-frame { padding: 3px; border-width: 3px; }
-  .invitation-words { padding: 27px 1px 6px; }
+  .invitation-words { padding: 32px 1px 12px; }
   .invitation-preface { font-size: 13px; letter-spacing: .05em; margin-bottom: 23px; }
   .invitation-preface span { font-size: 11px; letter-spacing: .12em; }
   h1 { font-size: clamp(61px, 16vw, 94px); }
@@ -123,7 +123,7 @@ dd { margin: 0; overflow-wrap: anywhere; }
   .invitation-venue span { font-size: 17px; }
   .invitation-afterwards span { font-size: 29px; }
   .invitation-afterwards em { font-size: 16px; }
-  .time-note { font-size: 13px; margin: 20px 0; }
+  .time-note { font-size: 15px; margin: 24px 0; }
   .quiet-link { font-size: 13px; }
   .particulars { padding: 37px 24px 28px; margin-top: 22px; }
   .section-heading { margin-bottom: 29px; }

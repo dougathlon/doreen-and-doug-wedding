@@ -24,23 +24,23 @@
 .print-sheet-inner { border: 3px double #765a36; height: 100%; padding: 3mm 7mm; text-align: center; overflow-wrap: anywhere; }
 .print-sheet p { margin-bottom: 0; }
 .print-crest { display: block; width: 31mm; height: 9mm; object-fit: contain; margin: 0 auto 2mm; }
-.print-portrait-frame { padding: 1mm; border: 3px double #64492b; }
+.print-portrait-frame { width: 104mm; margin-inline: auto; padding: 1mm; border: 3px double #64492b; }
 .print-portrait { display: block; width: 100%; height: auto; }
-.print-recipient { font-family: "Cormorant", Georgia, serif; font-size: 23pt; line-height: 1.05; margin: 4mm 0 2mm; }
+.print-sheet .print-recipient { font-family: "Cormorant", Georgia, serif; font-size: 23pt; line-height: 1.15; margin: 6mm 0 3mm; }
 .print-sheet .placeholder { color: #856e50; font-style: italic; }
-.print-preface { font-size: 10pt; letter-spacing: .075em; line-height: 1.5; text-transform: uppercase; }
-.print-preface span { font-size: 8pt; letter-spacing: .12em; }
-.print-couple { font-size: 44pt; letter-spacing: .02em; line-height: 1.1; text-transform: uppercase; margin: 1mm 0 2mm; }
+.print-preface { font-size: 11pt; letter-spacing: .075em; line-height: 1.5; text-transform: uppercase; }
+.print-preface span { font-size: 9pt; letter-spacing: .12em; }
+.print-couple { font-size: 44pt; letter-spacing: .02em; line-height: 1.1; text-transform: uppercase; margin: 3mm 0 4mm; }
 .print-couple em { font-family: "Fell", Georgia, serif; font-size: 23pt; text-transform: none; font-style: italic; padding: 0 1mm; }
-.print-date { font-size: 14pt; line-height: 1.2; }
+.print-date { font-size: 14pt; line-height: 1.4; }
 .print-date span { font-size: 11pt; }
-.print-sheet .print-time { font-size: 10pt; line-height: 1.3; margin: 2mm 0; }
+.print-sheet .print-time { font-size: 11pt; line-height: 1.4; margin: 3mm 0; }
 .print-venue { font-size: 15pt; line-height: 1.25; }
-.print-venue span, .print-reception span { display: block; font-size: 9pt; line-height: 1.4; }
-.print-sheet .print-reception { font-size: 12pt; line-height: 1.35; margin-top: 2mm; }
-.print-reception em { font-size: 10pt; }
-.print-sheet .print-friday { font-size: 10pt; line-height: 1.35; border-top: 1px solid #a58c64; margin-top: 3mm; padding-top: 3mm; }
-.print-reply { font-size: 10pt; line-height: 1.35; margin-top: 3mm; }
+.print-venue span, .print-reception span { display: block; font-size: 10.5pt; line-height: 1.5; }
+.print-sheet .print-reception { font-size: 13pt; line-height: 1.5; margin-top: 4mm; }
+.print-reception em { font-size: 11pt; }
+.print-sheet .print-friday { font-size: 11pt; line-height: 1.5; border-top: 1px solid #a58c64; margin-top: 4mm; padding-top: 4mm; }
+.print-reply { font-size: 11pt; line-height: 1.5; margin-top: 4mm; }
 .print-reply > p + p { margin-top: 1mm; }
 .print-reply .print-contact { font-size: 11pt; white-space: pre-line; margin-top: 2mm; }
 @media (max-width: 950px) {

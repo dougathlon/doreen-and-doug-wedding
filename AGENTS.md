@@ -25,3 +25,5 @@ The correction was relayed on 27 October; Doug directly authorised implementatio
 ## Postal invitations — 28 October 2026
 
 Doug requested and chose a browser form for preparing printed letters in the invitation's existing style. Keep this separate at `print.html`, with one named individual per A4 invitation, an editable reply contact and an optional deadline. Names are editable only in this organiser preparation tool; the guest RSVP identity remains fixed. Do not send or persist entered names/contact details, or include them in URLs or public files. PDF generation runs in the browser, using the same rendered artwork and wording. The print tool does not activate online replies.
+
+Doug prefers a smaller portrait and more generous text spacing in the website and postal invitation. Retain the full portrait without cropping it. In formal invitation wording, use “At one o’clock in the afternoon.” without a parenthetical “1pm”; practical timetable and calendar times remain unchanged.

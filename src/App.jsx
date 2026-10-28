@@ -26,7 +26,7 @@ export function App() {
             <h1><span>Doreen</span><em aria-hidden="true">&</em><span className="sr-only">and </span><span>Doug</span></h1>
             <Ornament />
             <p className="invitation-date">Saturday, the Seventeenth of July<br /><span>Two Thousand & Twenty-Seven</span></p>
-            <p className="time-note">At one o’clock in the afternoon ({wedding.ceremonyTime}).</p>
+            <p className="time-note">At one o’clock in the afternoon.</p>
             <p className="invitation-venue">{wedding.church}<br /><span>Appleby Magna</span></p>
             <p className="invitation-afterwards"><em>and afterwards at</em><br /><span>{wedding.school}</span></p>
             <a className="button" href="#reply">The favour of a Reply</a>
