@@ -2,11 +2,11 @@
 
 A custom invitation for 17 July 2027 in Appleby Magna, with a Friday gathering on 16 July whose location is yet to be settled. Saturday's reception is at Sir John Moore School. The selected baby portrait is used unchanged.
 
-## Current release: review preview
+## Current release: deployed, replies closed
 
 The invitation, weekend information, hotel links, brief travel guidance, calendar and postal editor work. The shared-link RSVP form accepts each person's own name, separate Friday/Saturday answers, optional food allergy or intolerance notes, and an optional email. There are no plus-one fields or guest-list import requirements.
 
-**The backend is implemented locally, but no production RSVP service or mail sender is connected.** On GitHub Pages the form remains an explicitly non-transmitting preview. In the local Workers preview, replies persist in the private local D1 database. Production requires the Cloudflare deployment, organiser access and sender setup described in `docs/rsvp-deployment.md`. The wedding mailbox is recorded in gitignored `.env.local`.
+**The production service is deployed, with public replies closed pending mail setup and a production pilot.** The [Cloudflare invitation](https://doreen-and-doug-rsvp.doug-j-stark.workers.dev/) serves the site and private D1-backed API. Its [organiser page](https://doreen-and-doug-rsvp.doug-j-stark.workers.dev/admin) is protected by Cloudflare Access and a server-side email allowlist. Doug approved the wedding mailbox and his Cloudflare account identity; his production sign-in was verified. Email-code login is enabled for Doreen. Outgoing RSVP mail is not connected. GitHub Pages remains an explicitly non-transmitting preview. See `docs/rsvp-deployment.md` for verification and remaining launch work.
 
 This is a public GitHub Pages site and public source repository. `noindex` discourages indexing; it does not provide access control. Keep all guest lists, personal invitation tokens, contact addresses, allergy notes and credentials out of this repository. The artwork, names, event dates and venue information are public in this preview.
 
@@ -43,4 +43,4 @@ All fonts are self-hosted. Licence files are in `public/fonts`. Paper and orname
 
 ## Before inviting guests
 
-The chosen church is St Michael & All Angels and the ceremony is advertised at 1pm, as instructed on 17 October 2026; confirmation from the vicar is still pending. Confirm reception times, the Friday location, activity and time, reply deadline, room arrangements, parking and any transfer plan. Use one shared invitation URL; each invited person enters their own name and replies only for themselves, with no companion places or household replies. No guest-list import is required. Verify access to the supplied wedding mailbox, choose the backend account and private storage, complete the production setup and pilot in `docs/rsvp-deployment.md`, and only then replace the preview state with the live reply flow.
+The chosen church is St Michael & All Angels and the ceremony is advertised at 1pm, as instructed on 17 October 2026; confirmation from the vicar is still pending. Confirm reception times, the Friday location, activity and time, reply deadline, room arrangements, parking and any transfer plan. Use one shared invitation URL; each invited person enters their own name and replies only for themselves, with no companion places or household replies. No guest-list import is required. Verify Doreen’s email-code login and mailbox recovery, connect the outbound sender, and complete the production pilot in `docs/rsvp-deployment.md` before opening replies and circulating the Cloudflare URL. The backend account and private storage are already configured.

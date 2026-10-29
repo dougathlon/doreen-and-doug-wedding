@@ -6,13 +6,13 @@ Original external sources checked 3–4 October 2026; London connections checked
 
 **Friday venue correction, authorised 28 October 2026:** Friday's gathering may not be at the School, so its location is now unspecified in the invitation and calendar. The School name, address and map link belong to Saturday's reception. Saturday's venues remain unchanged. Doug directly authorised implementing and publishing the correction relayed on 27 October.
 
-Wedding: Saturday 17 July 2027, church then Sir John Moore School in Appleby Magna. Friday activity: Friday 16 July; location, details and time unset. Collect separate Friday/Saturday attendance and food allergy or intolerance notes at this stage. On 28 October, Doug requested one shared invitation URL without a guest-list import. Each invited person enters their own name and replies for themselves; no plus-one or household reply flow. He supplied the wedding Gmail address, recorded locally in gitignored `.env.local`. The published site remains a preview: RSVP storage and email are not yet connected.
+Wedding: Saturday 17 July 2027, church then Sir John Moore School in Appleby Magna. Friday activity: Friday 16 July; location, details and time unset. Collect separate Friday/Saturday attendance and food allergy or intolerance notes at this stage. On 28 October, Doug requested one shared invitation URL without a guest-list import. Each invited person enters their own name and replies for themselves; no plus-one or household reply flow. He supplied the wedding Gmail address, recorded locally in gitignored `.env.local`. GitHub Pages remains a static preview. The Cloudflare site and private RSVP storage are deployed with public replies closed; outgoing email remains unconnected.
 
 ## Venues and period
 
 - [The Foundation Weddings](https://www.thefoundationweddings.com/): built in 1697; 101 Top Street, Appleby Magna, DE12 7AH. Used as the period anchor for the tone. The page's modern marketing wording is not reused.
 - [St Michael & All Angels, Appleby Magna](https://applebygroup.org.uk/our-churches/appleby-magna/): parish church serving Appleby Magna/Parva. **Chosen church, confirmed by Doug on 17 October 2026.** He instructed us to advertise a 1pm ceremony while confirmation from the vicar is still pending.
-- Names Doreen and Doug are from the user's context. Surnames, Friday location/activity/time, reception times and reply deadline are deliberately unset. The wedding mailbox was supplied on 28 October; its integration remains pending. Saturday's 1pm ceremony is UK local time; the calendar encodes 12:00 UTC, equivalent to 13:00 Europe/London on 17 July 2027. No finish time is invented.
+- Names Doreen and Doug are from the user's context. Surnames, Friday location/activity/time, reception times and reply deadline are deliberately unset. The wedding mailbox was supplied on 28 October; it is configured as the production contact route, while outgoing mail remains pending. Saturday's 1pm ceremony is UK local time; the calendar encodes 12:00 UTC, equivalent to 13:00 Europe/London on 17 July 2027. No finish time is invented.
 
 ## Hotels
 
