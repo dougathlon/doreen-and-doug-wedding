@@ -6,7 +6,11 @@ The guest form and private response service are implemented. Production is not c
 
 The Cloudflare Worker in `server/worker.js` serves the same built invitation and a D1-backed API. `server/local-worker.js` is a separate local demonstration entry point with no email delivery. Never deploy it. The inherited Sites worker and packaging files remain unchanged.
 
-Doug confirmed that he has a Cloudflare account on 28 October 2026. The dashboard account was found. Wrangler authorisation is pending; no remote database or Worker has been created by this work. Doreen has access to the wedding Gmail; the application does not need to read that mailbox.
+Doug confirmed his existing Cloudflare account and explicitly approved Wrangler's account/user read, Workers scripts write, D1 write and background access on 28 October 2026. Device authorisation completed and CLI authentication was verified. The dedicated remote `wedding-rsvp` D1 database was created in Western Europe and migration `0001_replies.sql` applied. Its initial export restored successfully with no responses or outbox entries and a passing SQLite integrity check. No Worker has been deployed yet.
+
+Cloudflare Access is not enabled on the account. Its Zero Trust Free activation checkout shows $0/month but requires billing details and agreement to terms. The checkout is prepared in Chrome for Doug; no checkout was confirmed. Organiser-access setup and live deployment remain dependent on activation. Doreen has access to the wedding Gmail; the application does not need to read that mailbox.
+
+The ignored `wrangler.production.jsonc` contains the selected account, database and planned address under the account's existing workers.dev subdomain. Initial production secrets are prepared in ignored `.wrangler/secrets/wedding-production.json`, with restricted file permissions, but have not been uploaded. Preserve the existing token secret when resuming; do not generate a replacement. No custom domain, DNS or existing email configuration was changed.
 
 ## Local verification
 
@@ -20,9 +24,9 @@ Verified 28 October 2026: 31 automated tests passed, the Vite build and Worker d
 
 ## Connect production
 
-1. Authorise Wrangler with the selected Cloudflare account. The pending request asks for account/user read, Workers scripts write, D1 write and background access. It is account-wide; authorisation requires the user's approval. Use `node scripts/wrangler.mjs` for all CLI calls so this checkout uses its own ignored credential location. Do not print credentials or add them to Git.
-2. Choose the production URL and organiser login identities. The account owns an existing domain, but no wedding subdomain or email-sending domain has been selected. Do not change its DNS or mail setup without resolving that choice. A hosted address is sufficient for the invitation itself.
-3. Create a dedicated D1 database, copy `wrangler.example.jsonc` to ignored `wrangler.production.jsonc`, and set the account ID, database ID and production origin. Apply `server/migrations` to that database with `d1 migrations apply ... --remote --config wrangler.production.jsonc`.
+1. Wrangler authorisation is complete. Use `node scripts/wrangler.mjs` for all CLI calls so this checkout uses its own ignored credential location. Do not print credentials or add them to Git. Wrangler reports other optional scopes as missing; do not expand the approved grant merely to suppress that warning.
+2. Complete Zero Trust Free activation and confirm organiser login identities. The planned production address uses the existing workers.dev subdomain; a custom website or email-sending domain is still optional and unselected. Do not change DNS or existing mail setup without resolving that choice.
+3. The dedicated D1 database, ignored production configuration and initial migration are prepared. Reuse them. Apply any future migrations explicitly to the remote production database after reviewing their effect.
 4. Configure Cloudflare Access for both `/admin*` and `/api/admin/*` on the production host, allowing only the agreed organiser identities. Both paths must be in the same Access application/audience. Set `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD` and `ADMIN_EMAILS`; the Worker verifies JWT signature, issuer, audience, expiry and its own email allowlist. Do not protect the entire invitation with organiser login. Verify that `/admin`, `/admin/`, `/admin.html` and the APIs all require authentication.
 5. Set a cryptographically random `TOKEN_SECRET` of at least 32 characters with `wrangler secret put`. This secret deterministically derives amendment tokens; keep it backed up outside the repository. Changing it without a planned token migration breaks reconstruction of existing amendment links and guest receipts. Tokens are hashed in D1; cookies store independent, expiring session credentials.
 6. Set `WEDDING_CONTACT_EMAIL` as a Worker secret from the locally recorded mailbox. Once production is configured it is also the guest-facing contact route returned by the API. No Gmail credentials are needed.
