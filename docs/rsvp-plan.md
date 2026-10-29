@@ -1,6 +1,6 @@
-# Replies and private administration — next phase
+# Replies and private administration
 
-Status: deployed to Cloudflare with public replies closed. Wrangler is authorised, the remote D1 database is prepared, Zero Trust Free is active, and Doug approved the two organiser identities. His Cloudflare sign-in reaches the production organiser page; email-code login is enabled for the wedding mailbox but Doreen's login remains untested. The wedding contact and existing token secret are uploaded. Outgoing mail and the production reply pilot remain pending. GitHub Pages stays a static preview. See `rsvp-deployment.md` for verified state and remaining launch checks.
+Status: deployed to Cloudflare with public replies open. Private D1 storage, the two-identity organiser Access policy and verified Resend sender are active. Production submission, private-link reopening, amendment, totals and provider email delivery passed with invented data; the test record is excluded. Doreen’s email-code login, human inbox placement and an authenticated live CSV download remain unverified. GitHub Pages stays a static preview. See `rsvp-deployment.md` for evidence and remaining checks.
 
 ## Confirmed direction — 28 October 2026
 
@@ -10,7 +10,7 @@ Guest wording: “Kindly submit a separate reply for each person named in your i
 
 Anyone with the shared URL can submit; it does not authenticate an invitee. Without a separate invited list, the organisers can count received replies but cannot automatically identify who has not responded. Review unexpected or duplicate entries privately. Do not describe the shared URL as access control.
 
-The shared-link form, private save/amend API, organiser view and email outbox are implemented and locally tested. The public GitHub Pages site still cannot save replies.
+The shared-link form, private save/amend API, organiser view and email outbox are implemented and deployed, with local tests and a controlled production pilot. The public GitHub Pages site still cannot save replies.
 
 ## Save and confirmation sequence
 
@@ -27,7 +27,7 @@ Email is a notification and correspondence channel. Private storage is the recor
 
 Keep the code in GitHub. The existing GitHub Pages preview can remain while production is tested. [GitHub Pages serves static sites](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages); receiving and saving replies requires a backend.
 
-The deployed service uses the same front end with a small Cloudflare Worker API and private D1 database at one production address. [Worker static assets](https://developers.cloudflare.com/workers/static-assets/) allow the invitation and API to share an origin. Doug approved and authorised his existing Cloudflare account and completed Zero Trust Free activation. The production service is deployed with replies closed; no paid upgrade or custom domain was purchased.
+The deployed service uses the same front end with a small Cloudflare Worker API and private D1 database at one production address. [Worker static assets](https://developers.cloudflare.com/workers/static-assets/) allow the invitation and API to share an origin. Doug approved and authorised his existing Cloudflare account and completed Zero Trust Free activation. The production service accepts replies at its workers.dev address; no paid upgrade or new domain was purchased.
 
 Protect organiser pages and API routes with separately authenticated Doug/Doreen accounts, for example an explicit [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/) allowlist with server-side token validation. The guest submission form remains accessible without organiser login. Private amendment links authorise access to exactly one response.
 
@@ -40,8 +40,8 @@ Use the supplied wedding inbox for questions, organiser notifications and Reply-
 | Verify access to the supplied wedding Gmail, including access for both organisers and recovery | Human correspondence and receiving notifications |
 | Confirm use of the deployed workers.dev address or choose an optional custom domain before circulation | Amendment links must remain valid |
 | Choose the initial reply deadline | Guest wording, printed invitations and amendment rules |
-| Decide whether guest email receipts are needed at launch and connect the sending route | Receipt delivery and organiser notifications |
-| Complete the controlled production reply pilot and Doreen’s email-code login | Verify the deployed service before opening replies |
+| Verify Doreen’s email-code login and check inbox/spam placement of test messages | Human confirmation of access and delivery; the production reply/mail pilot has passed |
+| Complete a live CSV download after new approval or through a manual organiser check | Browser download approval was declined; do not work around it |
 
 There is no guest-list import requirement. The postal editor at `print.html` remains a separate browser-local tool: entering its reply contact only prints that contact and does not configure online mail delivery.
 
