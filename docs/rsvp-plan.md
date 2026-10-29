@@ -1,6 +1,6 @@
 # Replies and private administration — next phase
 
-Status: design implemented locally; production setup pending. Doug supplied the wedding Gmail address on 28 October 2026. It is recorded in gitignored `.env.local` as `WEDDING_CONTACT_EMAIL`; the production service expects this setting, but it has not been uploaded. Mailbox access, recovery and delivery are unverified. Wrangler is authorised and an empty remote D1 database is prepared, but no production RSVP endpoint or mail integration is connected. Cloudflare Zero Trust Free activation is awaiting Doug's checkout completion. See `rsvp-deployment.md` for implementation and launch checks.
+Status: design implemented locally; production setup pending. Doug supplied the wedding Gmail address on 28 October 2026. It is recorded in gitignored `.env.local` as `WEDDING_CONTACT_EMAIL`; the production service expects this setting, but it has not been uploaded. Mailbox access, recovery and delivery are unverified. Wrangler is authorised, an empty remote D1 database is prepared, and Zero Trust Free is active. The organiser Access application is drafted pending approval of its exact login identities. No production RSVP endpoint or mail integration is connected. See `rsvp-deployment.md` for implementation and launch checks.
 
 ## Confirmed direction — 28 October 2026
 
