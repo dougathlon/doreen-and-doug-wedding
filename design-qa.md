@@ -61,3 +61,11 @@ Reviewed the production website at desktop, 390px and 320px, with no horizontal 
 The previous export placed a 190 × 276mm invitation on a white A4 page, leaving 10mm side/top margins and 11mm below. The preview, browser print sheet and PDF now use the full 210 × 297mm A4 page. Internal padding preserves the existing content dimensions and physical position; cream paper extends to every edge. The PDF image is drawn at the exact page bounds, avoiding rounding gaps. Browser-print page margins are zero; organiser instructions distinguish this from a physical printer's unprintable area.
 
 Downloaded a fresh two-page PDF with invented names (including a long name) and a three-line reply contact. Both A4 pages were rendered and visually inspected. PDF content transforms confirm that the image covers each complete page; all four outer five-pixel strips contain zero white pixels. Evidence: `qa/postal-edge-pdf/`. Build and all 15 existing tests pass. No physical borderless print was performed.
+
+## Online layout restoration — 29 October 2026
+
+Restored the online invitation declarations changed by the 28 October postal-spacing revision: the portrait fills its original inner width, and the surrounding heading, copy and time spacing use their earlier values. Removed the weekend calendar explanation and its unused style. The calendar download and formal time wording remain. The postal editor, PDF code and print stylesheet are unchanged.
+
+Visually checked the production build at desktop, 390px and 320px, with no horizontal overflow. Desktop portrait frame is 816px rather than capped at 660px; phone widths are 312px and 252px. The postal preview retains its 104mm portrait and A4 dimensions, with content fitting inside the sheet. No RSVP was submitted and no email was sent for these layout checks.
+
+Published to the live Cloudflare invitation and verified the restored 816px desktop portrait, removed paragraph, retained calendar link/time wording and available reply button. All 31 tests, build and deployment guard passed. Proof: `qa/web-spacing-restored/live-desktop.jpg`.

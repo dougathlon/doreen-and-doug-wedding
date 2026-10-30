@@ -32,7 +32,7 @@ The correction was relayed on 27 October; Doug directly authorised implementatio
 
 Doug requested and chose a browser form for preparing printed letters in the invitation's existing style. Keep this separate at `print.html`, with one named individual per A4 invitation, an editable reply contact and an optional deadline. Its names and contacts remain local to the browser; the planned online RSVP separately accepts each guest's own name. Do not send or persist postal-editor entries, or include them in URLs or public files. PDF generation runs in the browser, using the same rendered artwork and wording. The print tool does not activate online replies.
 
-Doug prefers a smaller portrait and more generous text spacing in the website and postal invitation. Retain the full portrait without cropping it. In formal invitation wording, use “At one o’clock in the afternoon.” without a parenthetical “1pm”; practical timetable and calendar times remain unchanged.
+Doug prefers a smaller portrait and more generous text spacing in the postal invitation. On 29 October he clarified that the online invitation should retain its original full-width portrait and spacing; keep the PDF layout adjustments confined to the postal editor. Retain the full portrait without cropping it. In formal invitation wording, use “At one o’clock in the afternoon.” without a parenthetical “1pm”; practical timetable and calendar times remain unchanged.
 
 Postal PDFs should have cream paper to all four A4 page edges, without a white outer margin. Keep the decorative double rule and invitation content inset at their existing physical size. Distinguish PDF page margins from a printer's unprintable margins in the organiser guidance.
 
@@ -45,3 +45,7 @@ Doug explicitly approved the displayed Wrangler grant on 28 October. Authenticat
 ## Outbound sender — 28 October 2026
 
 Doug chose `Doreen & Doug <replies@wedding.dougstark.tech>` for automated RSVP mail, with replies directed to the existing wedding Gmail. Use the wedding subdomain, preserve existing website/mail records and keep tracking disabled. Doug explicitly approved the three DNS records, a sending-only key restricted to the wedding subdomain, private Worker storage and tests to the two organiser addresses. These actions are complete: Resend verified the domain in Ireland (`eu-west-1`), the restricted key is uploaded, TLS is enforced and no tracking domain is configured. All six approved test messages show Delivered in Resend. Production submission, private-link reopening, amendment and exclusion were verified. The invented test record remains excluded, with zero guest totals and no pending mail. The browser approval gate rejected the live CSV download; do not retry through another route without new approval. Doreen’s email-code login and human inbox/spam checks remain unverified. See `docs/rsvp-deployment.md` for evidence and operating limits.
+
+## Online invitation correction — 29 October 2026
+
+Remove the explanatory paragraph beginning “The calendar gives the ceremony at 1pm” from the weekend section. Keep the calendar download and actual ceremony time. The online invitation uses its original portrait width and surrounding text spacing from before the postal-spacing revision; do not apply the smaller PDF portrait to the website.

@@ -62,7 +62,6 @@ export function App() {
               <a className="text-link" href={mapLink(wedding.school + " " + wedding.schoolAddress)}>Find the School</a>
             </article>
           </div>
-          <p className="footnote">The calendar gives the ceremony at 1pm, local time in Appleby Magna. Friday remains a date to keep; its hour will follow.</p>
         </section>
         <Ornament />
         <section id="lodgings" className="detail-section">
